@@ -6,41 +6,86 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { FaSignOutAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider } from 'firebase/auth';
+import useToken from '../../hooks/useToken';
 
 
 const SignUp = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm()
-    const { createUser, updateUser, googleProviderLogin } = useContext(AuthContext);
+    const { createUser, updateUser, googleProviderLogin, loading, setLoading } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
     const [signUpError, setSignUpError] = useState();
     const navigate = useNavigate();
 
+    //Image Host Key
+    const imageHostKey = process.env.REACT_APP_imgbb_key;
+
+    //JWT Token Implementation
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
+
+    if (token) {
+        navigate('/');
+    }
+
 
     //console.log(slot, name, phone, email);
 
-    const handleSignUp = data => {
-
+    const handleSignUp = (data, event) => {
+        event.preventDefault();
         console.log(data);
+        // add image to imageBB
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        // console.log(image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+        console.log(url);
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
 
-        setSignUpError('')
-        createUser(data.email, data.password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                toast.success("User Created Successfully")
-                const userInfo = {
-                    displayName: data.name
+                console.log(imgData);
+                if (imgData.success) {
+                    createUser(data.email, data.password)
+                        .then(result => {
+                            const user = result.user;
+                            toast.success(`You have successfully created your account, ${data.name}`)
+
+                            //Update user  profile
+                            updateUser(data.name, imgData.data.url)
+                                .then(() => {
+                                    saveUserToDB(user.displayName, user.email, imgData.data.url, data.role)
+
+                                })
+                                .catch(err => toast.error(err));
+
+                        })
+                        .catch(err => {
+                            toast.success(err.code);
+                            setLoading(false);
+                        })
                 }
-                updateUser(userInfo)
-                    .then(() => {
-                        navigate('/');
-                    })
-                    .catch(err => console.log(err))
             })
-            .catch(error => {
-                console.log(error)
-                setSignUpError(error.message)
+    }
+
+    //Save Registered User to DB
+    const saveUserToDB = (name, email, url, role) => {
+        const user = { name, email, url, role };
+        fetch(`http://localhost:4500/users`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('save user', data);
+                setCreatedUserEmail(email);
             })
     }
 
@@ -102,20 +147,26 @@ const SignUp = () => {
                             {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
                         </div>
 
-                        <div className='flex mt-2'>
-                            <div className="form-control">
-                                <label className="label cursor-pointer">
-                                    <input {...register("seller")} type="radio" name="radio-10" className="radio checked:bg-primary" checked />
-                                    <span className="label-text text-lg font-medium ml-1">Seller</span>
-                                </label>
-                            </div>
-                            <div className="form-control">
-                                <label className="label cursor-pointer">
-                                    <input {...register("buyer")} type="radio" name="radio-10" className="radio checked:bg-primary" checked />
-                                    <span className="label-text text-lg font-medium ml-1">Buyer</span>
-                                </label>
-                            </div>
+                        <div className="form-control w-full mx-auto">
+                            <label className="label">
+                                <span className="label-text text-lg font-semibold">Specialty</span>
+                            </label>
+                            <select className="select select-bordered w-full" name="role" {...register("role")}>
+                                <option>Seller</option>)
+                                <option>Buyer</option>)
+                            </select>
                         </div>
+
+                        <div className="form-control w-full mx-auto">
+                            <label className="label">
+                                <span className="label-text font-semibold">Upload Profile Photo</span>
+                            </label>
+                            <input {...register("image", {
+                                required: "Photo is Required"
+                            })} type="file" name="image" className="input w-full" />
+                            {errors.image && <p className='text-red-600'>{errors.image.message}</p>}
+                        </div>
+
 
                         <button className='btn bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center text-xl text-white font-semibold' type="submit"  ><FaSignOutAlt className="md:text-2xl text-xl uppercase "></FaSignOutAlt><span className='ml-1'>Sign Up</span></button>
                         {signUpError && <p className='text-red-600'>{signUpError}</p>}
