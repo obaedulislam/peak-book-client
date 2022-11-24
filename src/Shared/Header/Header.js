@@ -38,7 +38,7 @@ const Header = () => {
       ) : (
         <li>
           <button
-            className=" bg-primary rounded  sm:px-4 px-2 md:mt-0 mt-2 py-1 md:text-lg sm:text-md text-xs text-white flex items-center"
+            className=" bg-primary duration-300 hover:bg-secondary rounded  sm:px-4 px-2 md:mt-0 mt-2 py-1 md:text-lg sm:text-md text-xs text-white flex items-center"
             onClick={handleLogout}
             to="/login"
           >
