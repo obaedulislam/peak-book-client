@@ -7,7 +7,7 @@ module.exports = {
         peakbooktheme: {
           primary: "#5C7CFA",
           secondary: "#20C997",
-          accent: "#DF3260",
+          accent: "#Cd3260",
           neutral: "#3d4451",
           "base-100": "#ffffff",
         },
