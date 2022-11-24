@@ -24,7 +24,7 @@ const Footer = () => {
                   src={logo}
                   alt="Peak Book"
                 />
-                <h1 className="uppercase lg:text-3xl md:text-2xl sm:text-xl text-lg font-bold text-primary ">
+                <h1 className="uppercase lg:text-3xl md:text-2xl sm:text-xl text-lg font-extrabold text-primary ">
                   Peak <span className="text-white">Book</span>
                 </h1>
               </Link>

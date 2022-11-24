@@ -5,6 +5,7 @@ import "./Header.css";
 import logo from "../../assets/logo.png";
 import { BiLogInCircle } from "react-icons/bi";
 import { ImMenu } from "react-icons/im";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -26,25 +27,29 @@ const Header = () => {
       {user?.uid ? (
         <>
           <li>
-            <button
-              className=" bg-primary rounded  px-5 py-1 text-lg text-white"
-              onClick={handleLogout}
-              to="/login"
-            >
-              Sign Out
-            </button>
+            <Link to="/login">
+              <button
+                className=" bg-primary duration-300 hover:bg-secondary rounded  sm:px-4 px-2 md:mt-0 mt-2 py-1 md:text-lg sm:text-md text-xs text-white flex items-center"
+                onClick={handleLogout}
+              >
+                <FaSignOutAlt className="md:text-xl text-lg "></FaSignOutAlt>
+                <span className=" uppercase ml-1">Sign Out</span>
+              </button>
+            </Link>
           </li>
         </>
       ) : (
         <li>
-          <button
-            className=" bg-primary duration-300 hover:bg-secondary rounded  sm:px-4 px-2 md:mt-0 mt-2 py-1 md:text-lg sm:text-md text-xs text-white flex items-center"
-            onClick={handleLogout}
-            to="/login"
-          >
-            <BiLogInCircle className="md:text-2xl text-lg "></BiLogInCircle>
-            <span className=" uppercase ml-1">Login</span>
-          </button>
+          <Link to="/login">
+            <button
+              className=" bg-primary duration-300 hover:bg-secondary rounded  sm:px-4 px-2 md:mt-0 mt-2 py-1 md:text-lg sm:text-md text-xs text-white flex items-center"
+              onClick={handleLogout}
+              to="/login"
+            >
+              <BiLogInCircle className="md:text-2xl text-lg "></BiLogInCircle>
+              <span className=" uppercase ml-1">Login</span>
+            </button>
+          </Link>
         </li>
       )}
     </React.Fragment>
@@ -74,7 +79,7 @@ const Header = () => {
                 src={logo}
                 alt="Peak Book"
               />
-              <h1 className="uppercase lg:text-3xl md:text-2xl sm:text-xl text-lg font-bold text-primary ">
+              <h1 className="uppercase lg:text-3xl md:text-2xl sm:text-xl text-lg font-extrabold text-primary ">
                 Peak <span className="text-accent">Book</span>
               </h1>
             </Link>
