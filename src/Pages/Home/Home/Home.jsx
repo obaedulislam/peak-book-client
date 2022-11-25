@@ -1,5 +1,6 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
+import BestAuthor from '../BestAuthor/BestAuthor';
 import BookCategories from '../BookCategroies/BookCategories';
 
 
@@ -11,6 +12,9 @@ const Home = () => {
             </div>
             <div className='pt-10 pb-20'>
                 <BookCategories></BookCategories>
+            </div>
+            <div className='pb-20 '>
+                <BestAuthor></BestAuthor>
             </div>
         </div>
     );
