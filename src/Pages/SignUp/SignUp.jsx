@@ -15,7 +15,6 @@ const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
     const { createUser, updateUser, googleProviderLogin, loading, setLoading } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
-    const [signUpError, setSignUpError] = useState();
     const navigate = useNavigate();
 
     //Image Host Key
@@ -23,6 +22,7 @@ const SignUp = () => {
 
     //JWT Token Implementation
     const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [signUpError, setSignUpError] = useState();
     const [token] = useToken(createdUserEmail);
     const [gToken] = useGoogleToken(createdUserEmail);
 
@@ -38,7 +38,7 @@ const SignUp = () => {
 
     const handleSignUp = (data, event) => {
         event.preventDefault();
-        console.log(data);
+        setSignUpError('')
         // add image to imageBB
         const image = data.image[0];
         const formData = new FormData();
@@ -53,7 +53,6 @@ const SignUp = () => {
             .then(res => res.json())
             .then(imgData => {
 
-                console.log(imgData);
                 if (imgData.success) {
                     createUser(data.email, data.password)
                         .then(result => {
@@ -64,15 +63,16 @@ const SignUp = () => {
                             updateUser(data.name, imgData.data.url, data.role)
                                 .then(() => {
                                     console.log(data.name);
-                                    saveUserToDB(data.name, user.email, imgData.data.url, data.role)
+                                    saveUserToDB(data.name, data.email, imgData.data.url, data.role)
 
                                 })
                                 .catch(err => toast.error(err));
 
                         })
                         .catch(err => {
-                            toast.success(err.code);
+                            toast.error(err.code);
                             setLoading(false);
+                            setSignUpError(errors.message)
                         })
                 }
             })

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BsCartPlusFill } from 'react-icons/bs';
 import { MdLocationOn, MdVerifiedUser } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 
 const Book = ({ book, setBuyBook }) => {
 
@@ -10,9 +9,9 @@ const Book = ({ book, setBuyBook }) => {
 
 
     return (
-        <div className='bg-gray-100 shadow-xl rounded-xl'>
-            <div>
-                <img className='rounded-t-xl w-full ' src={book_photo} alt={title} />
+        <div className='bg-gray-100   shadow-xl rounded-xl'>
+            <div className='p-3'>
+                <img className='shadow-2xl w-full h-[350px] border-r-[12px] border-gray-400 ' src={book_photo} alt={title} />
             </div>
             <div className='relative py-5 px-5 h-[320px]'>
                 <div className='mb-2 flex justify-between '>

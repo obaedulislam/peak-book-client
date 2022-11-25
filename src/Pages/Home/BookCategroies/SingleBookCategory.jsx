@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Book from './Book';
-import BookingModal from './BookingModal';
+import BuyingBookModal from './BuyingBookModal';
+
 
 const SingleBookCategory = () => {
     const [buyBook, setBuyBook] = useState(null)
@@ -29,10 +30,10 @@ const SingleBookCategory = () => {
             <div>
                 {
                     buyBook &&
-                    <BookingModal
+                    <BuyingBookModal
                         buyBook={buyBook}
                         setBuyBook={setBuyBook}
-                    ></BookingModal>
+                    ></BuyingBookModal>
                 }
             </div>
         </div>
