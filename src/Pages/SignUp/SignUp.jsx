@@ -7,6 +7,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../hooks/useToken';
+import useGoogleToken from '../../hooks/useGoogleToken';
 
 
 const SignUp = () => {
@@ -23,8 +24,12 @@ const SignUp = () => {
     //JWT Token Implementation
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
+    const [gToken] = useGoogleToken(createdUserEmail);
 
     if (token) {
+        navigate('/');
+    }
+    if (gToken) {
         navigate('/');
     }
 
@@ -56,9 +61,10 @@ const SignUp = () => {
                             toast.success(`You have successfully created your account, ${data.name}`)
 
                             //Update user  profile
-                            updateUser(data.name, imgData.data.url)
+                            updateUser(data.name, imgData.data.url, data.role)
                                 .then(() => {
-                                    saveUserToDB(user.displayName, user.email, imgData.data.url, data.role)
+                                    console.log(data.name);
+                                    saveUserToDB(data.name, user.email, imgData.data.url, data.role)
 
                                 })
                                 .catch(err => toast.error(err));
@@ -84,20 +90,20 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log('save user', data);
                 setCreatedUserEmail(email);
             })
     }
 
 
     // Google Sign Up Login Form  Handler Function
-    const handleGoogleSignUp = () => {
+    const handleGoogleSignUp = (email) => {
         googleProviderLogin(googleProvider)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 toast.success("Successfully SignUp With Google");
                 navigate('/');
+                setCreatedUserEmail(user.email);
             })
             .catch(error => {
                 toast.error(error);
