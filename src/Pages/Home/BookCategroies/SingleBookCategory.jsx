@@ -1,20 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import Book from './Book';
+import BookingModal from './BookingModal';
 
-const SingleBookCategory = ({ category }) => {
-    const { category_name, category_image } = category;
+const SingleBookCategory = () => {
+    const [buyBook, setBuyBook] = useState(null)
+
+    const booksData = useLoaderData();
+    const books = booksData.bookCategory;
 
     return (
-        <Link>
-            <div className='bg-white shadow-2xl rounded-lg '>
-                <div className='category-img'>
-                    <img className='rounded-t-lg' src={category_image} alt="Book Category" />
-                </div>
-                <div className='p-5'>
-                    <h2 className='text-4xl text-center font-bold font-specially text-black'>{category_name}</h2>
+        <div className='py-20'>
+            <div className='pb-10'>
+                <h1 className='text-primary md:text-5xl sm:text-4xl text-2xl text-center font-specially font-bold  tracking-tight'>Explore Now!</h1>
+                <div className='flex justify-center mt-2'>
+                    <div className='w-24 h-[6px] bg-accent'></div>
                 </div>
             </div>
-        </Link>
+            <div className='max-w-[1200px] mx-auto grid grid-cols-3 gap-10'>
+                {
+                    books?.map(book => <Book
+                        key={book._id}
+                        book={book}
+                        setBuyBook={setBuyBook}
+                    ></Book>)
+                }
+            </div>
+            <div>
+                {
+                    buyBook &&
+                    <BookingModal
+                        buyBook={buyBook}
+                        setBuyBook={setBuyBook}
+                    ></BookingModal>
+                }
+            </div>
+        </div>
     );
 };
 
