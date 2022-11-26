@@ -13,7 +13,11 @@ const MyOrders = () => {
     const { data: buyingBooks = [] } = useQuery({
         queryKey: ["buyingBooks", user?.email],
         queryFn: async () => {
-            const res = await fetch(url);
+            const res = await fetch(url, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         },
@@ -21,8 +25,11 @@ const MyOrders = () => {
 
     return (
         <div className="overflow-hidden p">
-            <h3 className="text-4xl text-accent font-bold mb-7">My Orders</h3>
-            <div className="overflow-x-auto w-full">
+            <h3 className="text-4xl text-accent font-bold ">My Orders</h3>
+            <div className=' mt-2'>
+                <div className='w-24 h-[6px] bg-primary'></div>
+            </div>
+            <div className="overflow-x-auto w-full mt-5">
                 <table className="table table-zebra w-full">
                     <thead>
                         <tr >

@@ -11,7 +11,7 @@ const DashboardLayout = () => {
 
   return (
     <div>
-      <div className="shadow sticky top-0 z-10">
+      <div className="shadow sticky top-0 z-50">
         <Header></Header>
       </div>
 
@@ -21,16 +21,32 @@ const DashboardLayout = () => {
           type="checkbox"
           className="drawer-toggle"
         />
-        <div className="drawer-content px-4 py-12">
+        <div className="drawer-content pl-5 py-12">
           <Outlet></Outlet>
         </div>
         <div className="drawer-side bg-primary">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu px-4 py-10 w-64  text-base-content ">
             <li className="p-0 ">
-              <Link to="/dashboard" className="p-0 -z-0">
-                <button className=" btn  w-full font-3xl font-bold text-center bg-accent duration-200 hover:bg-white  text-white hover:text-accent">
+              <Link to="/dashboard" className="p-0 ">
+                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                   My Orders
+                </button>
+              </Link>
+            </li>
+
+            <li className="p-0 mt-3">
+              <Link to="/dashboard/allusers" className="p-0 ">
+                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                  All Users
+                </button>
+              </Link>
+            </li>
+
+            <li className="p-0 mt-3">
+              <Link to="/dashboard/addaproduct" className="p-0 ">
+                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                  Add A Product
                 </button>
               </Link>
             </li>
