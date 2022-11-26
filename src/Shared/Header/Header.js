@@ -6,6 +6,7 @@ import logo from "../../assets/logo.png";
 import { BiLogInCircle } from "react-icons/bi";
 import { ImMenu } from "react-icons/im";
 import { FaSignOutAlt } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -26,6 +27,12 @@ const Header = () => {
       </li>
       {user?.uid ? (
         <>
+          <li>
+            <Link to="/dashboard" className="flex items-center">
+              <AiFillDashboard className="md:text-2xl text-lg text-primary "></AiFillDashboard>
+              <span className="ml-1">Dashboard</span>
+            </Link>
+          </li>
           <li>
             <Link to="/login">
               <button

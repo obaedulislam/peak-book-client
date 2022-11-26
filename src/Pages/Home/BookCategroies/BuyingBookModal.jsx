@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthProvider';
 
-const BuyingBookModal = ({ buyBook, setBuyBook, refetch }) => {
-    const user = useContext(AuthContext);
+const BuyingBookModal = ({ buyBook, setBuyBook }) => {
+    const { user } = useContext(AuthContext);
+    console.log(user);
 
     const { title, book_photo, publishedDate, resale_price, original_price, used_years, seller_name, isVerified, location } = buyBook;
 
@@ -38,7 +39,7 @@ const BuyingBookModal = ({ buyBook, setBuyBook, refetch }) => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success("Booking Confirmed")
-                    refetch()
+                    setBuyBook(null)
                 }
                 else {
                     toast.error(data.message)
@@ -58,8 +59,8 @@ const BuyingBookModal = ({ buyBook, setBuyBook, refetch }) => {
                     <div className='mt-5'>
                         <form onSubmit={handleBooking}>
                             <div className='grid grid-cols-1 gap-3'>
-                                <input name="name" type="text" placeholder='Full Name' className="input input-bordered w-full font-medium" defaultValue={user?.user?.name} disabled required />
-                                <input name="email" type="email" placeholder='Email Address' className="input input-bordered w-full font-medium" defaultValue={user?.user?.email} disabled required />
+                                <input name="name" type="text" placeholder='Full Name' className="input input-bordered w-full font-medium" defaultValue={user?.displayName} disabled required />
+                                <input name="email" type="email" placeholder='Email Address' className="input input-bordered w-full font-medium" defaultValue={user?.email} disabled required />
                                 <input name="title" type="text" className="input input-bordered w-full font-medium " defaultValue={title} disabled required />
                                 <input name="price" type="number" className="input input-bordered w-full font-medium " defaultValue={resale_price} disabled required />
                                 <input name="phone" type="phone" placeholder='Your phone number' className="input input-bordered w-full font-medium" required />

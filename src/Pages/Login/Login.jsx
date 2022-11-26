@@ -6,6 +6,7 @@ import { BiLogInCircle } from 'react-icons/bi';
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
 
@@ -13,13 +14,20 @@ const Login = () => {
     const { signIn, googleProviderLogin, setLoading } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
 
-
+    //JWT Token Implementation
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [loginError, setLoginError] = useState('');
+    const [loginUserEmail, setLoginUserEmail] = useState('')
+    const [token] = useToken(loginUserEmail);
 
     //After Login Navigation
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.form?.pathname || '/';
+
+    if (token) {
+        navigate(from, { replace: true });
+    }
 
     const handleLogin = data => {
         console.log(data);
@@ -28,8 +36,8 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setLoading(true);
-                navigate(from, { replace: true });
-
+                setLoginUserEmail(data.email)
+                setCreatedUserEmail(data.email);
             })
             .catch(error => {
 
@@ -39,16 +47,30 @@ const Login = () => {
             })
     }
 
+    //Save Registered User to DB
+    const saveUserToDB = (name, email, url, role) => {
+        const user = { name, email, url, role };
+        fetch(`http://localhost:4500/users`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
 
-    // Google Sign In Login Form  Handler Function
-    const handleGoogleSignIn = () => {
+            })
+    }
+    // Google Sign Up Login Form  Handler Function
+    const handleGoogleSignUp = () => {
         googleProviderLogin(googleProvider)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                setLoading(false);
                 toast.success("Successfully SignUp With Google");
-                navigate(from, { replace: true });
+                navigate('/');
+                saveUserToDB(user.displayName, user.email, user.photoURL, 'Buyer');
             })
             .catch(error => {
                 toast.error(error);
@@ -56,12 +78,13 @@ const Login = () => {
             })
     }
 
+
     return (
         <div className='py-20 max-w-[450px] mx-auto '>
             <div className='shadow-lg  p-10 rounded-lg border border-gray-200'>
                 <h1 className='text-4xl text-primary font-bold text-center '>Login</h1>
                 <div className='mt-5'>
-                    <button onClick={handleGoogleSignIn} className='btn btn-outline border-gray-300 duration-300 hover:bg-accent w-full mt-3 flex items-center text-lg text-accent font-semibold capitalize font-specially' type="submit"  ><FcGoogle className="md:text-3xl text-xl  "></FcGoogle><span className='ml-1'>Continue With Google</span></button>
+                    <button onClick={handleGoogleSignUp} className='btn btn-outline border-gray-300 duration-300 hover:bg-accent w-full mt-3 flex items-center text-lg text-accent font-semibold capitalize font-specially' type="submit"  ><FcGoogle className="md:text-3xl text-xl  "></FcGoogle><span className='ml-1'>Continue With Google</span></button>
                     <div className="divider text-xl font-bold text-secondary">OR</div>
                 </div>
                 <form onSubmit={handleSubmit(handleLogin)} className="mt-8">

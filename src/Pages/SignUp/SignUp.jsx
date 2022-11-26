@@ -15,21 +15,20 @@ const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
     const { createUser, updateUser, googleProviderLogin, loading, setLoading } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
+    //After Login Navigation
     const navigate = useNavigate();
+
+
 
     //Image Host Key
     const imageHostKey = process.env.REACT_APP_imgbb_key;
 
-    //JWT Token Implementation
+    //JWT Token 
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [signUpError, setSignUpError] = useState();
     const [token] = useToken(createdUserEmail);
-    const [gToken] = useGoogleToken(createdUserEmail);
 
     if (token) {
-        navigate('/');
-    }
-    if (gToken) {
         navigate('/');
     }
 
@@ -43,7 +42,6 @@ const SignUp = () => {
         const image = data.image[0];
         const formData = new FormData();
         formData.append('image', image);
-        // console.log(image);
         const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
         console.log(url);
         fetch(url, {
@@ -57,10 +55,13 @@ const SignUp = () => {
                     createUser(data.email, data.password)
                         .then(result => {
                             const user = result.user;
-                            toast.success(`You have successfully created your account, ${data.name}`)
 
+                            toast.success(`You have successfully created your account, ${data.name}`)
                             //Update user  profile
-                            updateUser(data.name, imgData.data.url, data.role)
+                            const userInfo = {
+                                displayName: data.name
+                            }
+                            updateUser(userInfo, data.email, imgData.data.url)
                                 .then(() => {
                                     console.log(data.name);
                                     saveUserToDB(data.name, data.email, imgData.data.url, data.role)
@@ -70,9 +71,8 @@ const SignUp = () => {
 
                         })
                         .catch(err => {
-                            toast.error(err.code);
+                            toast.error(err.message);
                             setLoading(false);
-                            setSignUpError(errors.message)
                         })
                 }
             })
@@ -96,14 +96,14 @@ const SignUp = () => {
 
 
     // Google Sign Up Login Form  Handler Function
-    const handleGoogleSignUp = (email) => {
+    const handleGoogleSignUp = () => {
         googleProviderLogin(googleProvider)
             .then(result => {
                 const user = result.user;
                 console.log(user);
                 toast.success("Successfully SignUp With Google");
                 navigate('/');
-                setCreatedUserEmail(user.email);
+                saveUserToDB(user.displayName, user.email, user.photoURL, 'Buyer');
             })
             .catch(error => {
                 toast.error(error);
