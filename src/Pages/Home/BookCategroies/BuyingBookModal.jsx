@@ -25,7 +25,8 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
             bookTitle,
             bookPrice,
             phone,
-            location
+            location,
+            book_photo
         }
 
         fetch('http://localhost:4500/buyingBooks', {
