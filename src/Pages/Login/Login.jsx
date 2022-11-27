@@ -6,6 +6,7 @@ import { BiLogInCircle } from 'react-icons/bi';
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import { setGoogleToken } from '../../hooks/useGoogleToken';
 import useToken from '../../hooks/useToken';
 
 const Login = () => {
@@ -69,6 +70,7 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success("Successfully SignUp With Google");
+                setGoogleToken(user);
                 navigate('/');
                 saveUserToDB(user.displayName, user.email, user.photoURL, 'Buyer');
             })

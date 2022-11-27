@@ -7,7 +7,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../hooks/useToken';
-import useGoogleToken from '../../hooks/useGoogleToken';
+import useGoogleToken, { setGoogleToken } from '../../hooks/useGoogleToken';
 
 
 const SignUp = () => {
@@ -102,6 +102,7 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 toast.success("Successfully SignUp With Google");
+                setGoogleToken(user);
                 navigate('/');
                 saveUserToDB(user.displayName, user.email, user.photoURL, 'Buyer');
             })

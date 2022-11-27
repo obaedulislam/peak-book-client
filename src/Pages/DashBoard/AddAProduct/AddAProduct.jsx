@@ -224,7 +224,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
 
                 <div className="form-control w-full mx-auto ">
                     <label className="label">
-                        <span className=" font-semibold">Your Location</span>
+                        <span className=" font-semibold">Book Description</span>
                     </label>
 
                     <textarea {...register("description", {

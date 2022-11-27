@@ -36,6 +36,14 @@ const DashboardLayout = () => {
             </li>
 
             <li className="p-0 mt-3">
+              <Link to="/dashboard/addaproduct" className="p-0 ">
+                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                  Add A Product
+                </button>
+              </Link>
+            </li>
+
+            <li className="p-0 mt-3">
               <Link to="/dashboard/allusers" className="p-0 ">
                 <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                   All Users
@@ -44,9 +52,17 @@ const DashboardLayout = () => {
             </li>
 
             <li className="p-0 mt-3">
-              <Link to="/dashboard/addaproduct" className="p-0 ">
+              <Link to="/dashboard/allsellers" className="p-0 ">
                 <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
-                  Add A Product
+                  All Sellers
+                </button>
+              </Link>
+            </li>
+
+            <li className="p-0 mt-3">
+              <Link to="/dashboard/allbuyers" className="p-0 ">
+                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                  All Buyers
                 </button>
               </Link>
             </li>
