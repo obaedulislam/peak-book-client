@@ -93,8 +93,8 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 <div className='w-24 h-[6px] bg-primary'></div>
             </div>
 
-            <form onSubmit={handleSubmit(handleAddBook)} className="mt-8 bg-blue-200 rounded-2xl p-10 text-black">
-                <div className="form-control w-full mx-auto ">
+            <form onSubmit={handleSubmit(handleAddBook)} className="overflow-hidden mt-8 bg-blue-200 rounded-2xl p-10 text-black">
+                <div className=" w-full mx-auto ">
                     <label className="label">
                         <span className=" font-semibold">Name of Book</span>
                     </label>
@@ -108,7 +108,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 {/* Book Title Form End */}
 
                 <div className='flex justify-between space-x-3.5 '>
-                    <div className="form-control w-full mx-auto">
+                    <div className=" w-full mx-auto">
                         <label className="label">
                             <span className=" font-semibold text-black">Book Category</span>
                         </label>
@@ -128,7 +128,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                     </div>
                     {/* Book Category Form End */}
 
-                    <div className="form-control w-full mx-auto">
+                    <div className=" w-full mx-auto">
                         <label className="label">
                             <span className="font-semibold text-black">Book Type</span>
                         </label>
@@ -156,7 +156,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 {/* Book Image Form End */}
 
                 <div className='flex justify-between space-x-3.5 mt-1 '>
-                    <div className="form-control w-full mx-auto ">
+                    <div className=" w-full mx-auto ">
                         <label className="label">
                             <span className=" font-semibold">Original Price</span>
                         </label>
@@ -169,7 +169,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                     </div>
                     {/* Book Price Form End */}
 
-                    <div className="form-control w-full mx-auto ">
+                    <div className=" w-full mx-auto ">
                         <label className="label">
                             <span className=" font-semibold">Resale Price</span>
                         </label>
@@ -184,7 +184,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 </div>
                 {/* Price Form End */}
 
-                <div className="form-control w-full mx-auto ">
+                <div className=" w-full mx-auto ">
                     <label className="label">
                         <span className=" font-semibold">Year's This Book Use</span>
                     </label>
@@ -198,7 +198,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 {/*Used Years Form End */}
 
                 <div className='flex justify-between space-x-3.5 mt-1 '>
-                    <div className="form-control w-full mx-auto ">
+                    <div className=" w-full mx-auto ">
                         <label className="label">
                             <span className=" font-semibold">Phone Number</span>
                         </label>
@@ -211,7 +211,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                     </div>
                     {/* Book Price Form End */}
 
-                    <div className="form-control w-full mx-auto ">
+                    <div className=" w-full mx-auto ">
                         <label className="label">
                             <span className=" font-semibold">Your Location</span>
                         </label>
@@ -226,7 +226,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 </div>
                 {/* Price Form End */}
 
-                <div className="form-control w-full mx-auto ">
+                <div className=" w-full mx-auto ">
                     <label className="label">
                         <span className=" font-semibold">Book Description</span>
                     </label>

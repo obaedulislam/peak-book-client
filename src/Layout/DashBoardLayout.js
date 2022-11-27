@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../Context/AuthProvider";
+import useAdmin from "../hooks/useAdmin";
 import Footer from "../Shared/Footer/Footer";
 
 import Header from "../Shared/Header/Header";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
-  //const [isAdmin] = useAdmin(user?.email);
+  const [isAdmin] = useAdmin(user?.email);
+  console.log(isAdmin);
 
   return (
     <div>
@@ -21,7 +23,7 @@ const DashboardLayout = () => {
           type="checkbox"
           className="drawer-toggle"
         />
-        <div className="drawer-content pl-5 py-12">
+        <div className="drawer-content pl-5 py-12 ">
           <Outlet></Outlet>
         </div>
         <div className="drawer-side bg-primary">
@@ -50,35 +52,55 @@ const DashboardLayout = () => {
                 </button>
               </Link>
             </li>
-
             <li className="p-0 mt-3">
-              <Link to="/dashboard/allusers" className="p-0 ">
+              <Link to={`/dashboard/mybuyers`} className="p-0 ">
                 <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
-                  All Users
+                  My Buyers
                 </button>
               </Link>
             </li>
 
-            <li className="p-0 mt-3">
-              <Link to="/dashboard/allsellers" className="p-0 ">
-                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
-                  All Sellers
-                </button>
-              </Link>
-            </li>
+            {/* All Admin Protected Route */}
+            {isAdmin && (
+              <>
+                <li className="p-0 mt-3">
+                  <Link to="/dashboard/allusers" className="p-0 ">
+                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                      All Users
+                    </button>
+                  </Link>
+                </li>
 
-            <li className="p-0 mt-3">
-              <Link to="/dashboard/allbuyers" className="p-0 ">
-                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
-                  All Buyers
-                </button>
-              </Link>
-            </li>
+                <li className="p-0 mt-3">
+                  <Link to="/dashboard/allsellers" className="p-0 ">
+                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                      All Sellers
+                    </button>
+                  </Link>
+                </li>
+
+                <li className="p-0 mt-3">
+                  <Link to="/dashboard/allbuyers" className="p-0 ">
+                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                      All Buyers
+                    </button>
+                  </Link>
+                </li>
+
+                <li className="p-0 mt-3">
+                  <Link to="/dashboard/reporteditems" className="p-0 ">
+                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                      Reported Items
+                    </button>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
 
-      <div>
+      <div className="w-full">
         <Footer></Footer>
       </div>
     </div>

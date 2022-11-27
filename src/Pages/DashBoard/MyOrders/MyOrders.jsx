@@ -45,7 +45,7 @@ const MyOrders = () => {
                         {
                             buyingBooks.map((book, i) => <tr>
                                 <th>{i + 1}</th>
-                                <td><img className="w-12 h-12" src={book?.book_photo ? book?.book_photo : 'Image'} alt={book?.bookTitle} /></td>
+                                <td><img className="w-[40px] h-12 shadow-lg" src={book?.book_photo ? book?.book_photo : 'Image'} alt={book?.bookTitle} /></td>
                                 <td className="font-semibold text-sm">{book?.bookTitle}</td>
                                 <td className="font-semibold text-primary">${book?.bookPrice}</td>
                                 <td className="font-semibold text-sm">{book?.location}</td>

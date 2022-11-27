@@ -54,7 +54,7 @@ const MyProducts = () => {
                                     <td>
                                         <div className='flex items-center'>
                                             <div>
-                                                <img className="w-[40px] h-10 rounded-full" src={book?.book_photo} alt={book?.book_title} />
+                                                <img className="w-[40px] h-12 shadow-lg" src={book?.book_photo} alt={book?.book_title} />
                                             </div>
                                             <div><p className='font-semibold text-xs ml-2'>{book?.book_title}</p></div>
                                         </div>
@@ -72,7 +72,7 @@ const MyProducts = () => {
                                         }
                                     </td>
                                     <td className="font-semibold text-sm text-center"><div className="">
-                                        <Link className="text-center"><button className=" py-[2px] rounded-lg   px-2  bg-red-500   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-sm capitalize font-semibold flex items-center uppercase"><BsTrash className=' mr-1'></BsTrash> Delete</button></Link>
+                                        <Link className="text-center"><button className=" py-[2px] rounded-lg   px-2  bg-red-500   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-sm capitalize font-semibold flex items-center "><BsTrash className=' mr-1'></BsTrash> Delete</button></Link>
                                     </div></td>
 
                                 </tr>)
