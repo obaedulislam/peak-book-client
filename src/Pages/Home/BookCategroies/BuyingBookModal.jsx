@@ -6,7 +6,7 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
     const { user } = useContext(AuthContext);
     console.log(user);
 
-    const { title, book_photo, publishedDate, resale_price, original_price, used_years, seller_name, isVerified, location } = buyBook;
+    const { bookTitle, book_photo, publishedDate, resale_price, original_price, used_years, seller_name, isVerified, location } = buyBook;
 
 
     const handleBooking = (e) => {
@@ -14,7 +14,7 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
         const form = e.target;
         const userName = form.name.value;
         const email = form.email.value;
-        const bookTitle = form.title.value;
+        const bookTitle = form.bookTitle.value;
         const bookPrice = form.price.value;
         const phone = form.phone.value;
         const location = form.location.value;
@@ -56,13 +56,13 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
             <div className="modal">
                 <div className="modal-box relative">
                     <label htmlFor="booking-modal" className="btn btn-sm btn-circle text-white absolute right-3 top-3">✕</label>
-                    <h3 className="text-3xl font-specially font-bold">{title}</h3>
+                    <h3 className="text-3xl font-specially font-bold">{bookTitle}</h3>
                     <div className='mt-5'>
                         <form onSubmit={handleBooking}>
                             <div className='grid grid-cols-1 gap-3'>
                                 <input name="name" type="text" placeholder='Full Name' className="input input-bordered w-full font-medium" defaultValue={user?.displayName} disabled required />
                                 <input name="email" type="email" placeholder='Email Address' className="input input-bordered w-full font-medium" defaultValue={user?.email} disabled required />
-                                <input name="title" type="text" className="input input-bordered w-full font-medium " defaultValue={title} disabled required />
+                                <input name="title" type="text" className="input input-bordered w-full font-medium " defaultValue={bookTitle} disabled required />
                                 <input name="price" type="number" className="input input-bordered w-full font-medium " defaultValue={resale_price} disabled required />
                                 <input name="phone" type="phone" placeholder='Your phone number' className="input input-bordered w-full font-medium" required />
                                 <input name="location" type="text" placeholder='Meeting location' className="input input-bordered w-full font-medium" required />

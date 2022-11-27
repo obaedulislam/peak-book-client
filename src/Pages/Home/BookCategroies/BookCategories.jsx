@@ -11,11 +11,6 @@ const BookCategories = () => {
             .then(data => setCategories(data.data.bookCategories))
     }, [])
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:4500/categories`)
-    //         .then(res => res.json())
-    //         .then(data => setBookCategories(data.bookCategories))
-    // }, []);
 
     return (
         <div>

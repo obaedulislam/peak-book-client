@@ -44,6 +44,14 @@ const DashboardLayout = () => {
             </li>
 
             <li className="p-0 mt-3">
+              <Link to={`/dashboard/myproducts`} className="p-0 ">
+                <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                  My Products
+                </button>
+              </Link>
+            </li>
+
+            <li className="p-0 mt-3">
               <Link to="/dashboard/allusers" className="p-0 ">
                 <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                   All Users

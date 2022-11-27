@@ -7,8 +7,8 @@ import AddProducts from "../Pages/DashBoard/AddAProduct/AddProducts";
 import AllBuyers from "../Pages/DashBoard/AllBuyers/AllBuyers";
 import AllSellers from "../Pages/DashBoard/AllSelers/AllSellers";
 import AllUsers from "../Pages/DashBoard/AllUsers/AllUsers";
-
 import MyOrders from "../Pages/DashBoard/MyOrders/MyOrders";
+import MyProducts from "../Pages/DashBoard/My Products/MyProducts";
 import SingleBookCategory from "../Pages/Home/BookCategroies/SingleBookCategory";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -71,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/allbuyers",
         element: <AllBuyers></AllBuyers>,
+      },
+      {
+        path: "/dashboard/myproducts",
+        element: <MyProducts></MyProducts>,
       },
     ],
   },

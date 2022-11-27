@@ -56,6 +56,10 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                         phone: data.phone,
                         location: data.location,
                         description: data.description,
+                        status: false,
+                        advertise: false,
+                        wishlist: false,
+                        verify_user: false,
                     }
 
                     //Save book information to the Database
