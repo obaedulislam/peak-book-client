@@ -1,18 +1,63 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const AllUsers = () => {
 
-    const { data: users = [] } = useQuery({
+    const [deletingUser, setDeletingUser] = useState(null);
+
+    const closeModal = () => {
+        setDeletingUser(null);
+    }
+
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:4500/users`);
             const data = await res.json();
-            return data;
+            return data.users;
         }
     })
+
+    //Delete book from client & MongoDB
+    const handleDeleteUser = id => {
+        Swal.fire({
+            title: 'Are you sure You want to delete?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log(id);
+                fetch(`http://localhost:4500/user/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        if (data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+
+            }
+        })
+
+    }
 
 
     return (
@@ -34,7 +79,7 @@ const AllUsers = () => {
                     </thead>
                     <tbody>
                         {
-                            users?.users?.map((user, i) => <tr>
+                            users?.map((user, i) => <tr>
                                 <th>{i + 1}</th>
                                 <td>
                                     <div className='flex items-center'>
@@ -48,7 +93,7 @@ const AllUsers = () => {
                                 <td className="font-semibold text-primary"><span className='bg-gray-100 py-1 px-2 rounded-lg text-sm'>{user?.role}</span></td>
 
                                 <td className="font-semibold text-sm text-center"><div className="">
-                                    <Link className="text-center"><button className=" py-[3px] rounded-lg   px-3  bg-accent  duration-300 hover:border-[#5C7CFA] hover:bg-primary text-white    font-semibold flex items-center "> Delete</button></Link>
+                                    <button onClick={() => handleDeleteUser(user._id)} className=" py-[3px] rounded-lg   px-3  bg-accent  duration-300 hover:border-[#5C7CFA] hover:bg-primary text-white    font-semibold flex items-center "> Delete</button>
                                 </div></td>
 
                             </tr>)
