@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { BsCartPlusFill, BsTrash } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
@@ -9,7 +10,7 @@ const MyProducts = () => {
 
     const url = `http://localhost:4500/my-products?email=${user?.email}`;
     console.log(url);
-    const { data: myProducts = [] } = useQuery({
+    const { data: myProducts = [], refetch } = useQuery({
         queryKey: ["myProducts", user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -22,14 +23,48 @@ const MyProducts = () => {
         },
     });
 
-    console.log(myProducts);
+
+    //Sales status of your product
+    const handleProductSales = (id) => {
+        fetch(`http://localhost:4500/my-products/${id}`, {
+            method: "PUT",
+            headers: {
+                authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    toast.success(` Product Sold`);
+                    refetch();
+                }
+            });
+    };
+
+    // Advertise Your Product
+    const handleAdvertisement = (id) => {
+        fetch(`http://localhost:4500/my-products/ad/${id}`, {
+            method: "PUT",
+            headers: {
+                authorization: `bearer ${localStorage.getItem("accessToken")}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    toast.success("Product Advertised");
+                    refetch();
+                }
+            });
+    };
 
     return (
         <div className="overflow-hidden p">
-            <h3 className="text-4xl text-accent font-bold ">My Products</h3>
 
             <div className="overflow-hidden p">
-                <h3 className="text-4xl text-accent font-bold ">My Orders</h3>
+                <h3 className="text-4xl text-accent font-bold ">My Products</h3>
                 <div className=' mt-2'>
                     <div className='w-24 h-[6px] bg-primary'></div>
                 </div>
@@ -63,12 +98,12 @@ const MyProducts = () => {
                                     <td className="text-sm font-bold text-black ">{book?.product_condition}</td>
                                     <td className="font-semibold text-sm">
                                         {
-                                            book?.status ? <button className="py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary">Sold</button> : <button className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Available</button>
+                                            book?.salesStatus ? <button className="py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary">Sold</button> : <button onClick={() => handleProductSales(book._id)} className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Available</button>
                                         }
                                     </td>
                                     <td className="font-semibold text-sm">
                                         {
-                                            book?.advertise ? <button className="py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary">Advertised</button> : <button className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Advertise</button>
+                                            book?.advertise ? <button className="py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary">Advertised</button> : <button onClick={() => handleAdvertisement(book._id)} className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Advertise</button>
                                         }
                                     </td>
                                     <td className="font-semibold text-sm text-center"><div className="">

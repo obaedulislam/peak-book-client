@@ -56,7 +56,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                         phone: data.phone,
                         location: data.location,
                         description: data.description,
-                        status: false,
+                        salesStatus: false,
                         advertise: false,
                         wishlist: false,
                         verify_user: false,

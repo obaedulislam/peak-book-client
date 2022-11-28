@@ -5,7 +5,7 @@ import "./Header.css";
 import logo from "../../assets/logo.png";
 import { BiLogInCircle } from "react-icons/bi";
 import { ImMenu } from "react-icons/im";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { AiFillDashboard } from "react-icons/ai";
 
 const Header = () => {
@@ -42,6 +42,23 @@ const Header = () => {
                 <FaSignOutAlt className="md:text-xl text-lg "></FaSignOutAlt>
                 <span className=" uppercase ml-1">Sign Out</span>
               </button>
+            </Link>
+          </li>
+          <li className="font-semibold p-0 m-0 user-photo ml-4">
+            <Link>
+              {user?.photoURL ? (
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={user?.photoURL}
+                  alt={user.displayName}
+                  title={user.displayName}
+                />
+              ) : (
+                <FaUserCircle
+                  className="text-3xl"
+                  title={user?.displayName}
+                ></FaUserCircle>
+              )}
             </Link>
           </li>
         </>
