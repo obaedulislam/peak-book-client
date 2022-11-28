@@ -15,6 +15,7 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoutes from "./AdminRoutes";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
         path: "category/:id",
         element: <SingleBookCategory></SingleBookCategory>,
         loader: ({ params }) =>
-          fetch(`http://localhost:4500/category/${params.id}`),
+          fetch(`https://peakbook-server.vercel.app/category/${params.id}`),
       },
     ],
   },
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
         element: <MyProducts></MyProducts>,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
   },
 ]);
 

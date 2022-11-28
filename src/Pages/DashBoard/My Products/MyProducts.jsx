@@ -1,16 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
-import { BsCartPlusFill, BsTrash } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import { AuthContext } from "../../../Context/AuthProvider";
+import Loading from "../../../Shared/Loading/Loading";
+import Product from "./Product";
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:4500/my-products?email=${user?.email}`;
+    const url = `https://peakbook-server.vercel.app/my-products?email=${user?.email}`;
     console.log(url);
-    const { data: myProducts = [], refetch } = useQuery({
+    const { data: myProducts = [], isLoading, refetch } = useQuery({
         queryKey: ["myProducts", user?.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -26,7 +28,7 @@ const MyProducts = () => {
 
     //Sales status of your product
     const handleProductSales = (id) => {
-        fetch(`http://localhost:4500/my-products/${id}`, {
+        fetch(`https://peakbook-server.vercel.app/my-products/${id}`, {
             method: "PUT",
             headers: {
                 authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -44,7 +46,7 @@ const MyProducts = () => {
 
     // Advertise Your Product
     const handleAdvertisement = (id) => {
-        fetch(`http://localhost:4500/my-products/ad/${id}`, {
+        fetch(`https://peakbook-server.vercel.app/my-products/ad/${id}`, {
             method: "PUT",
             headers: {
                 authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -59,6 +61,45 @@ const MyProducts = () => {
                 }
             });
     };
+
+
+    //Delete book from client & MongoDB
+    const handleDeleteBook = id => {
+        Swal.fire({
+            title: 'Are you sure You want to delte?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+        fetch(`https://peakbook-server.vercel.app/my-products/${id}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+
+                    refetch();
+                }
+            })
+    }
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className="overflow-hidden p">
@@ -84,33 +125,14 @@ const MyProducts = () => {
                         </thead>
                         <tbody>
                             {
-                                myProducts.map((book, i) => <tr>
-                                    <th>{i + 1}</th>
-                                    <td>
-                                        <div className='flex items-center'>
-                                            <div>
-                                                <img className="w-[40px] h-12 shadow-lg" src={book?.book_photo} alt={book?.book_title} />
-                                            </div>
-                                            <div><p className='font-semibold text-xs ml-2'>{book?.book_title}</p></div>
-                                        </div>
-                                    </td>
-                                    <td className="font-semibold text-sm">${book?.resale_price}</td>
-                                    <td className="text-sm font-bold text-black ">{book?.product_condition}</td>
-                                    <td className="font-semibold text-sm">
-                                        {
-                                            book?.salesStatus ? <button className="py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary">Sold</button> : <button onClick={() => handleProductSales(book._id)} className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Available</button>
-                                        }
-                                    </td>
-                                    <td className="font-semibold text-sm">
-                                        {
-                                            book?.advertise ? <button className="py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary">Advertised</button> : <button onClick={() => handleAdvertisement(book._id)} className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Advertise</button>
-                                        }
-                                    </td>
-                                    <td className="font-semibold text-sm text-center"><div className="">
-                                        <Link className="text-center"><button className=" py-[2px] rounded-lg   px-2  bg-red-500   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-sm capitalize font-semibold flex items-center "><BsTrash className=' mr-1'></BsTrash> Delete</button></Link>
-                                    </div></td>
-
-                                </tr>)
+                                myProducts.map((book, i) => <Product
+                                    i={i}
+                                    book={book}
+                                    key={book._id}
+                                    handleProductSales={handleProductSales}
+                                    handleAdvertisement={handleAdvertisement}
+                                    handleDeleteBook={handleDeleteBook}
+                                ></Product>)
                             }
                         </tbody>
                     </table>
