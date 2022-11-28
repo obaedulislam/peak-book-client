@@ -22,7 +22,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
     const { data: categories, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const res = await fetch(`https://peakbook-server.vercel.app/categories`);
+            const res = await fetch(`http://localhost:4500/categories`);
             const data = await res.json();
             return data;
         }
@@ -63,7 +63,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                     }
 
                     //Save book information to the Database
-                    fetch('https://peakbook-server.vercel.app/bookCategories', {
+                    fetch('http://localhost:4500/bookCategories', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

@@ -8,7 +8,7 @@ const AllSellers = () => {
     const { data: sellers = [] } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch(`https://peakbook-server.vercel.app/users/sellers`);
+            const res = await fetch(`http://localhost:4500/users/sellers`);
             const data = await res.json();
             return data;
         }
