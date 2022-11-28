@@ -19,6 +19,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import BuyerRoutes from "./BuyerRoutes";
 import SellerRoutes from "./SellerRoutes";
 import MyBuyers from "../Pages/DashBoard/MyBuyers/MyBuyers";
+import ReportedItems from "../Pages/DashBoard/ReportedItems/ReportedItems";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
         path: "category/:id",
         element: <SingleBookCategory></SingleBookCategory>,
         loader: ({ params }) =>
-          fetch(`http://localhost:4500/category/${params.id}`),
+          fetch(`https://peakbook-server.vercel.app/category/${params.id}`),
       },
     ],
   },
@@ -110,6 +111,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoutes>
             <AllBuyers></AllBuyers>
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/reporteditems",
+        element: (
+          <AdminRoutes>
+            <ReportedItems></ReportedItems>
           </AdminRoutes>
         ),
       },

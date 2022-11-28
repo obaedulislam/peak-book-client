@@ -29,7 +29,7 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
             book_photo
         }
 
-        fetch('http://localhost:4500/buyingBooks', {
+        fetch('https://peakbook-server.vercel.app/buyingBooks', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

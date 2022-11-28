@@ -5,7 +5,7 @@ const useSeller = (email) => {
   const [isSellerLoading, setIsSellerLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:4500/users/seller/${email}`)
+      fetch(`https://peakbook-server.vercel.app/users/seller/${email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

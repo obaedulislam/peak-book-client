@@ -24,10 +24,10 @@ const Product = ({ book, i, handleProductSales, handleAdvertisement, handleDelet
             </td>
             <td className="font-semibold text-sm">
                 {
-                    !book?.advertise && !book?.salesStatus && <button onClick={() => handleAdvertisement(book._id)} className="py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary">Advertised</button>
+                    !book?.advertise && !book?.salesStatus && <button onClick={() => handleAdvertisement(book._id)} className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Advertise</button>
                 }
                 {
-                    book?.advertise && !book?.salesStatus && <button className="py-1 px-2 bg-accent text-white text-xs rounded hover:bg-secondary">Advertise</button>
+                    book?.advertise && !book?.salesStatus && <button className=" py-1 px-2 bg-secondary text-black text-xs rounded hover:bg-secondary ">Advertised</button>
                 }
             </td>
             <td className="font-semibold text-sm text-center"><div className="">

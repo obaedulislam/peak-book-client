@@ -8,7 +8,7 @@ const MyOrders = () => {
     const { user } = useContext(AuthContext);
 
 
-    const url = `http://localhost:4500/buyingBooks?email=${user?.email}`;
+    const url = `https://peakbook-server.vercel.app/buyingBooks?email=${user?.email}`;
     console.log(url);
     const { data: buyingBooks = [] } = useQuery({
         queryKey: ["buyingBooks", user?.email],
