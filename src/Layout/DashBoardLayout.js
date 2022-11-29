@@ -23,22 +23,13 @@ const DashboardLayout = () => {
         <Header></Header>
       </div>
 
-      <div className="drawer drawer-mobile w-[1250px] mx-auto">
-        <input
-          id="dashboard-drawer"
-          type="checkbox"
-          className="drawer-toggle"
-        />
-        <div className="drawer-content pl-5 py-12 ">
-          <Outlet></Outlet>
-        </div>
-        <div className="drawer-side bg-primary">
-          <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-          <ul className="menu px-4 py-10 w-64  text-base-content ">
+      <div className="grid grid-cols-12 lg:max-w-[97%] max-w-[100%]">
+        <div className="bg-primary lg:col-span-2 md:col-span-3 col-span-12 flex justify-center">
+          <ul className="  py-5 md:space-x-0 space-x-3  text-base-content md:block flex justify-between">
             {isBuyer && (
               <li className="p-0 ">
                 <Link to="/dashboard/myorders" className="p-0 ">
-                  <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                  <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                     My Orders
                   </button>
                 </Link>
@@ -50,7 +41,7 @@ const DashboardLayout = () => {
               <>
                 <li className="p-0 mt-3">
                   <Link to="/dashboard/addaproduct" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       Add A Product
                     </button>
                   </Link>
@@ -58,14 +49,14 @@ const DashboardLayout = () => {
 
                 <li className="p-0 mt-3">
                   <Link to={`/dashboard/myproducts`} className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       My Products
                     </button>
                   </Link>
                 </li>
                 <li className="p-0 mt-3">
                   <Link to={`/dashboard/mybuyers`} className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       My Buyers
                     </button>
                   </Link>
@@ -78,9 +69,9 @@ const DashboardLayout = () => {
             {/* All Admin Protected Route */}
             {isAdmin && (
               <>
-                <li className="p-0 mt-3">
+                <li className="p-0 mt-3 ">
                   <Link to="/dashboard/allusers" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       All Users
                     </button>
                   </Link>
@@ -88,7 +79,7 @@ const DashboardLayout = () => {
 
                 <li className="p-0 mt-3">
                   <Link to="/dashboard/allsellers" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       All Sellers
                     </button>
                   </Link>
@@ -96,7 +87,7 @@ const DashboardLayout = () => {
 
                 <li className="p-0 mt-3">
                   <Link to="/dashboard/allbuyers" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       All Buyers
                     </button>
                   </Link>
@@ -104,7 +95,7 @@ const DashboardLayout = () => {
 
                 <li className="p-0 mt-3">
                   <Link to="/dashboard/reporteditems" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg font-3xl font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       Reported Items
                     </button>
                   </Link>
@@ -112,6 +103,9 @@ const DashboardLayout = () => {
               </>
             )}
           </ul>
+        </div>
+        <div className="pl-5 py-12 lg:col-span-10 md:col-span-9 col-span-12">
+          <Outlet></Outlet>
         </div>
       </div>
 

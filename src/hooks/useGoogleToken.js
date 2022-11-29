@@ -4,7 +4,7 @@ export const setGoogleToken = (user) => {
   };
 
   //Get JWT Token
-  fetch("https://peakbook-server.vercel.app/jwt", {
+  fetch("http://localhost:4500/jwt", {
     method: "POST",
     headers: {
       "content-type": "application/json",

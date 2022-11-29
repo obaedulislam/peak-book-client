@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashBoardLayout";
 import Main from "../Layout/Main";
@@ -44,9 +43,13 @@ const router = createBrowserRouter([
       },
       {
         path: "category/:id",
-        element: <SingleBookCategory></SingleBookCategory>,
+        element: (
+          <PrivateRoute>
+            <SingleBookCategory></SingleBookCategory>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`https://peakbook-server.vercel.app/category/${params.id}`),
+          fetch(`http://localhost:4500/category/${params.id}`),
       },
     ],
   },

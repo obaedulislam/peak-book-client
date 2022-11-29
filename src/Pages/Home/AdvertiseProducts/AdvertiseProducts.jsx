@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Loading from '../../../Shared/Loading/Loading';
-
-import AdvertiseProduct from './AdvertiseProduct';
+import Book from '../BookCategroies/Book';
+import BuyingBookModal from '../BookCategroies/BuyingBookModal';
 
 const AdvertiseProducts = () => {
-
+    const [buyBook, setBuyBook] = useState(null)
     const [adsProducts, setAdsProducts] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://peakbook-server.vercel.app/advertised-products`)
+        axios.get(`http://localhost:4500/advertised-products`)
             .then(data => setAdsProducts(data.data.adsProducts))
     }, [])
     console.log(adsProducts);
@@ -27,12 +27,20 @@ const AdvertiseProducts = () => {
                             </div>
                             <div className=' grid grid-cols-3 rounded-xl gap-10 mt-7'>
                                 {
-                                    adsProducts.map(product => <AdvertiseProduct
-                                        key={product._id}
-                                        product={product}
-                                    ></AdvertiseProduct>)
+                                    adsProducts.map(book => <Book
+                                        key={book._id}
+                                        book={book}
+                                        setBuyBook={setBuyBook}
+                                    ></Book>)
                                 }
                             </div>
+                            {
+                                buyBook &&
+                                <BuyingBookModal
+                                    buyBook={buyBook}
+                                    setBuyBook={setBuyBook}
+                                ></BuyingBookModal>
+                            }
                         </div>
                     </div>
                 </section>

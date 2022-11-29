@@ -8,6 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../hooks/useToken';
 import useGoogleToken, { setGoogleToken } from '../../hooks/useGoogleToken';
+import Loading from '../../Shared/Loading/Loading';
 
 
 const SignUp = () => {
@@ -54,17 +55,22 @@ const SignUp = () => {
                 if (imgData.success) {
                     createUser(data.email, data.password)
                         .then(result => {
-                            const user = result.user;
 
+                            const user = result.user;
+                            setLoading(false);
                             toast.success(`You have successfully created your account, ${data.name}`)
                             //Update user  profile
                             const userInfo = {
-                                displayName: data.name
+                                displayName: data.name,
+                                photoURL: imgData.data.url
                             }
-                            updateUser(userInfo, data.email, imgData.data.url)
+                            console.log(imgData.data.url)
+
+                            updateUser(userInfo)
                                 .then(() => {
                                     console.log(data.name);
-                                    saveUserToDB(data.name, data.email, imgData.data.url, data.role)
+                                    saveUserToDB(data.name, data.email, imgData.data.url, data.role);
+                                    setLoading(false);
 
                                 })
                                 .catch(err => toast.error(err));
@@ -81,7 +87,7 @@ const SignUp = () => {
     //Save Registered User to DB
     const saveUserToDB = (name, email, url, role) => {
         const user = { name, email, url, role };
-        fetch(`https://peakbook-server.vercel.app/users`, {
+        fetch(`http://localhost:4500/users`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -177,7 +183,9 @@ const SignUp = () => {
                         </div>
 
 
-                        <button className='btn bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center text-xl text-white font-semibold' type="submit"  ><FaSignOutAlt className="md:text-2xl text-xl uppercase "></FaSignOutAlt><span className='ml-1'>Sign Up</span></button>
+                        <button className='btn bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center text-xl text-white font-semibold' type="submit"  ><FaSignOutAlt className="md:text-2xl text-xl uppercase "></FaSignOutAlt><span className='ml-1'>
+                            SignUp
+                        </span></button>
                         {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     </form>
 
