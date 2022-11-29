@@ -50,8 +50,14 @@ const MyOrders = () => {
                                 <td className="font-semibold text-primary">${book?.bookPrice}</td>
                                 <td className="font-semibold text-sm">{book?.location}</td>
                                 <td className="font-semibold text-sm text-center"><div className="">
-                                    <Link className="text-center"><button className=" py-[2px] rounded-lg   px-2  bg-[#5C7CFA]   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-xs font-semibold flex items-center uppercase"><BsCartPlusFill className=' mr-1'></BsCartPlusFill> Pay</button></Link>
+                                    {
+                                        book?.bookPrice && !book.salesStatus && <Link to={`/dashboard/payment/${book._id}`} className="text-center"><button className=" py-[2px] rounded-lg   px-2  bg-[#5C7CFA]   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-xs font-semibold flex items-center uppercase"><BsCartPlusFill className=' mr-1'></BsCartPlusFill> Pay</button></Link>
+                                    }
+                                    {
+                                        book?.bookPrice && book.salesStatus && <button className=" py-[2px] rounded-lg   px-2  bg-secondary   duration-300  text-black   text-xs font-semibold flex items-center uppercase"> Paid</button>
+                                    }
                                 </div></td>
+
 
                             </tr>)
                         }

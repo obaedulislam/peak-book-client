@@ -6,7 +6,7 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
     const { user } = useContext(AuthContext);
     console.log(user);
 
-    const { book_title, book_photo, publishedDate, resale_price, original_price, used_years, seller_name, isVerified, location } = buyBook;
+    const { _id, book_title, book_photo, publishedDate, resale_price, original_price, used_years, seller_name, isVerified, location } = buyBook;
 
 
     const handleBooking = (e) => {
@@ -26,7 +26,8 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
             bookPrice,
             phone,
             location,
-            book_photo
+            book_photo,
+            bookId: _id,
         }
 
         fetch('http://localhost:4500/buyingBooks', {

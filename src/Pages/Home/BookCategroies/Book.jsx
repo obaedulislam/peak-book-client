@@ -42,7 +42,6 @@ const Book = ({ book, setBuyBook }) => {
                             )
                         }
                     })
-
             }
         })
 

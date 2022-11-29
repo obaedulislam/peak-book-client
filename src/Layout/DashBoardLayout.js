@@ -25,7 +25,7 @@ const DashboardLayout = () => {
 
       <div className="grid grid-cols-12 lg:max-w-[97%] max-w-[100%]">
         <div className="bg-primary lg:col-span-2 md:col-span-3 col-span-12 flex justify-center">
-          <ul className="  py-5 md:space-x-0 space-x-3  text-base-content md:block flex justify-between">
+          <ul className="  py-10 md:space-x-0 space-x-3  text-base-content md:block flex justify-between">
             {isBuyer && (
               <li className="p-0 ">
                 <Link to="/dashboard/myorders" className="p-0 ">
@@ -39,7 +39,7 @@ const DashboardLayout = () => {
             {/* Seller Route Protection Start*/}
             {isSeller && (
               <>
-                <li className="p-0 mt-3">
+                <li className="p-0 ">
                   <Link to="/dashboard/addaproduct" className="p-0 ">
                     <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       Add A Product
@@ -69,9 +69,9 @@ const DashboardLayout = () => {
             {/* All Admin Protected Route */}
             {isAdmin && (
               <>
-                <li className="p-0 mt-3 ">
+                <li className="p-0  ">
                   <Link to="/dashboard/allusers" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-3 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       All Users
                     </button>
                   </Link>
@@ -79,7 +79,7 @@ const DashboardLayout = () => {
 
                 <li className="p-0 mt-3">
                   <Link to="/dashboard/allsellers" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-3 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       All Sellers
                     </button>
                   </Link>
@@ -87,7 +87,7 @@ const DashboardLayout = () => {
 
                 <li className="p-0 mt-3">
                   <Link to="/dashboard/allbuyers" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-3 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       All Buyers
                     </button>
                   </Link>
@@ -95,7 +95,7 @@ const DashboardLayout = () => {
 
                 <li className="p-0 mt-3">
                   <Link to="/dashboard/reporteditems" className="p-0 ">
-                    <button className="   w-full py-2 px-2 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
+                    <button className="   w-full py-2 px-3 rounded-lg  md:text-lg sm:text-sm text-xs font-bold text-center hover:bg-secondary duration-200 bg-white  text-black">
                       Reported Items
                     </button>
                   </Link>

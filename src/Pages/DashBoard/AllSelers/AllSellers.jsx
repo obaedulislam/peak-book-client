@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { BsTrash } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const AllSellers = () => {
@@ -80,7 +82,7 @@ const AllSellers = () => {
                                 <td className="font-semibold text-primary"><span className='bg-gray-100 py-1 px-2 rounded-lg text-sm'>{seller?.role}</span></td>
 
                                 <td className="font-semibold text-sm text-center"><div className="">
-                                    <button onClick={() => handleDeleteSeller(seller._id)} className=" py-[3px] rounded-lg   px-3  bg-accent  duration-300 hover:border-[#5C7CFA] hover:bg-primary text-white    font-semibold flex items-center "> Delete</button>
+                                    <Link className="text-center"><button onClick={() => handleDeleteSeller(seller._id)} className=" py-[2px] rounded-lg   px-2  bg-red-500   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-sm capitalize font-semibold flex items-center "><BsTrash className=' mr-1'></BsTrash> Delete</button></Link>
                                 </div></td>
 
                             </tr>)
