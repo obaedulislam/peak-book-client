@@ -1,12 +1,48 @@
 import React from 'react';
-import { BsCartPlusFill, BsFillHeartFill } from 'react-icons/bs';
-import { MdLocationOn, MdVerifiedUser } from 'react-icons/md';
+import { BsCartPlusFill } from 'react-icons/bs';
+import { MdLocationOn, MdReport, MdVerifiedUser } from 'react-icons/md';
 import { AiFillStar } from "react-icons/ai";
+import Swal from 'sweetalert2';
 
 const Book = ({ book, setBuyBook }) => {
 
-    const { book_title, book_photo, published_date, resale_price, original_price, years_of_use, seller_name, verify_user, location, product_condition } = book;
+    const { book_title, book_photo, published_date, resale_price, original_price, years_of_use, seller_name, verify_user, location, product_condition, reported } = book;
 
+
+    // Report a product to admin
+    const handleReportedProducts = id => {
+
+        Swal.fire({
+            title: 'Are you sure you want to Report this Book?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, want to Report it!'
+        }).then((result) => {
+            fetch(`http://localhost:4500/reported-product/${id}`, {
+                method: "PUT",
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.modifiedCount > 0) {
+
+                    }
+                })
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Reported!',
+                    'This Book has been Reported.',
+                    'success'
+                )
+            }
+        })
+
+    }
 
 
     return (
@@ -26,10 +62,14 @@ const Book = ({ book, setBuyBook }) => {
                             <AiFillStar className='text-yellow-500 text-lg'></AiFillStar>
                             <AiFillStar className='text-yellow-500 text-lg'></AiFillStar>
                         </div>
-                        <div><p className='py-.5 px-2 bg-accent rounded-lg text-sm text-white'>{product_condition}</p></div>
+                        <div><p className='py-.5 px-2 bg-accent rounded-lg text-xs text-white'>{product_condition}</p></div>
                     </div>
                     <div className=''>
-                        <button className='p-[6px] text-white hover:text-secondary rounded-lg text-2xl shadow-xl bg-primary'><BsFillHeartFill className="mt-[2px]"></BsFillHeartFill></button>
+                        {
+                            reported ? <button className='py-.75 px-2 text-white  rounded-lg   text-sm shadow-xl bg-accent flex items-center '><MdReport className="text-sm mr-[2px]"></MdReport> Reported</button>
+                                :
+                                <button onClick={() => handleReportedProducts(book._id)} className='py-.75 px-2 text-white  rounded-lg   text-sm shadow-xl bg-primary hover:bg-accent flex items-center'><MdReport className="text-sm mr-[2px]"></MdReport> Report</button>
+                        }
                     </div>
                 </div>
                 <div className='mb-2 flex justify-between mt-2'>

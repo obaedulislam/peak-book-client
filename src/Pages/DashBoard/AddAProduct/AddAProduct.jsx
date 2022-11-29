@@ -58,6 +58,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                         description: data.description,
                         salesStatus: false,
                         advertise: false,
+                        reported: false,
                         wishlist: false,
                         verify_user: false,
                     }
