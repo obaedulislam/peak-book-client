@@ -7,12 +7,6 @@ import Swal from 'sweetalert2';
 
 const AllUsers = () => {
 
-    const [deletingUser, setDeletingUser] = useState(null);
-
-    const closeModal = () => {
-        setDeletingUser(null);
-    }
-
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {

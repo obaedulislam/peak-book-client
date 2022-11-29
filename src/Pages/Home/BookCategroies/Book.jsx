@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsCartPlusFill } from 'react-icons/bs';
 import { MdLocationOn, MdReport, MdVerifiedUser } from 'react-icons/md';
 import { AiFillStar } from "react-icons/ai";
 import Swal from 'sweetalert2';
 
 const Book = ({ book, setBuyBook }) => {
+
+    const [loading, setLoading] = useState(false);
 
     const { book_title, book_photo, published_date, resale_price, original_price, years_of_use, seller_name, verify_user, location, product_condition, reported } = book;
 
@@ -21,24 +23,26 @@ const Book = ({ book, setBuyBook }) => {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, want to Report it!'
         }).then((result) => {
-            fetch(`http://localhost:4500/reported-product/${id}`, {
-                method: "PUT",
-                headers: {
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
-                }
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.modifiedCount > 0) {
 
+            if (result.isConfirmed) {
+                fetch(`http://localhost:4500/reported-product/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
                 })
-            if (result.isConfirmed) {
-                Swal.fire(
-                    'Reported!',
-                    'This Book has been Reported.',
-                    'success'
-                )
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.modifiedCount > 0) {
+                            setLoading(true);
+                            Swal.fire(
+                                'Reported!',
+                                'This Book has been Reported.',
+                                'success'
+                            )
+                        }
+                    })
+
             }
         })
 
