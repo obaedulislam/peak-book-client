@@ -18,6 +18,7 @@
 8. `Deploy Server data Using vercel & set Url of it in Client site`
 9. `Using Environment(.env) variable to hide the firebase key`
 10. `Deploy site to the firebase`
+11. `Integrate Stripe Payment for a Buyer to buy product`
 
 ### Technology Use For this WebSite:-
 
@@ -32,3 +33,4 @@
 9. `React Day Picker`
 10. `React Hook Form`
 11. `Axios`
+12. `React Stripe`

@@ -20,6 +20,7 @@ import SellerRoutes from "./SellerRoutes";
 import MyBuyers from "../Pages/DashBoard/MyBuyers/MyBuyers";
 import ReportedItems from "../Pages/DashBoard/ReportedItems/ReportedItems";
 import Payment from "../Pages/DashBoard/MyOrders/Payment";
+import Dashboard from "../Pages/DashBoard/DashBoard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+      },
       {
         path: "/dashboard/myorders",
         element: (
