@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+import toast, { ToastBar } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 import Loading from '../../../Shared/Loading/Loading';
@@ -11,7 +11,6 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
 
     const [sellerVerifyStatus, setSellerVerifyStatus] = useState(false);
     const { user } = useContext(AuthContext);
-    console.log(user);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const imageHostKey = process.env.REACT_APP_imgbb_key;
@@ -39,57 +38,63 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
     }, [user?.email])
 
     const handleAddBook = data => {
-        const image = data.image[0];
-        const formData = new FormData();
-        formData.append('image', image);
-        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-            .then(res => res.json())
-            .then(imageData => {
-                if (imageData.success) {
-                    const bookPhoto = imageData.data.url;
-                    const book = {
-                        book_title: data.title,
-                        category_id: data.bookCategory,
-                        book_photo: bookPhoto,
-                        published_date: date,
-                        original_price: data.originalPrice,
-                        resale_price: data.resalePrice,
-                        product_condition: data.condition,
-                        seller_name: user.displayName,
-                        seller_email: user.email,
-                        seller_image: user.photoURL,
-                        years_of_use: data.yearsOfUse,
-                        phone: data.phone,
-                        location: data.location,
-                        description: data.description,
-                        salesStatus: false,
-                        advertise: false,
-                        reported: false,
-                        wishlist: false,
-                        isSellerVerified: sellerVerifyStatus,
-                    }
+        if (sellerVerifyStatus) {
+            const image = data.image[0];
+            const formData = new FormData();
+            formData.append('image', image);
+            const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+            fetch(url, {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(imageData => {
+                    if (imageData.success) {
+                        const bookPhoto = imageData.data.url;
+                        const book = {
+                            book_title: data.title,
+                            category_id: data.bookCategory,
+                            book_photo: bookPhoto,
+                            published_date: date,
+                            original_price: data.originalPrice,
+                            resale_price: data.resalePrice,
+                            product_condition: data.condition,
+                            seller_name: user.displayName,
+                            seller_email: user.email,
+                            seller_image: user.photoURL,
+                            years_of_use: data.yearsOfUse,
+                            phone: data.phone,
+                            location: data.location,
+                            description: data.description,
+                            salesStatus: false,
+                            advertise: false,
+                            reported: false,
+                            wishlist: false,
+                            isSellerVerified: sellerVerifyStatus,
+                        }
 
-                    //Save book information to the Database
-                    fetch('https://peakbook-server.vercel.app/bookCategories', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json',
-                            authorization: `bearer ${localStorage.getItem('accessToken')}`
-                        },
-                        body: JSON.stringify(book)
-                    })
-                        .then(res => res.json())
-                        .then(result => {
-                            toast.success(`You Added a Book Successfully`)
-                            console.log(result);
-                            navigate('/dashboard/myproducts')
+                        //Save book information to the Database
+                        fetch('https://peakbook-server.vercel.app/bookCategories', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json',
+                                authorization: `bearer ${localStorage.getItem('accessToken')}`
+                            },
+                            body: JSON.stringify(book)
                         })
-                }
-            });
+                            .then(res => res.json())
+                            .then(result => {
+                                toast.success(`You Added a Book Successfully`)
+                                console.log(result);
+                                navigate('/dashboard/myproducts')
+                            })
+                    }
+                });
+        }
+        else {
+            toast.error('You must be verified to upload a product');
+        }
+
 
     }
 
@@ -98,13 +103,13 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
     }
 
     return (
-        <div className='w-[600px] mx-auto'>
-            <h3 className="text-4xl text-accent font-bold text-center">Add Your Product</h3>
-            <div className=' mt-1 flex justify-center'>
-                <div className='w-24 h-[6px] bg-primary'></div>
+        <div className='max-w-[600px] mx-auto'>
+            <h3 className="lg:text-4xl md:text-2xl text-xl text-accent font-bold ">Add A Product</h3>
+            <div className=' mt-2'>
+                <div className='md:w-24 md:h-[6px] w-20 h-[4px] bg-primary'></div>
             </div>
 
-            <form onSubmit={handleSubmit(handleAddBook)} className="overflow-hidden mt-8 bg-blue-200 rounded-2xl p-10 text-black">
+            <form onSubmit={handleSubmit(handleAddBook)} className="overflow-hidden mt-8 bg-blue-200 rounded-2xl md:p-10 sm:p-6 p-3 text-black">
                 <div className=" w-full mx-auto ">
                     <label className="label">
                         <span className=" font-semibold">Name of Book</span>
@@ -118,7 +123,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 </div>
                 {/* Book Title Form End */}
 
-                <div className='flex justify-between space-x-3.5 '>
+                <div className='flex flex-col sm:flex-row  justify-between sm:space-x-3.5 space-x-0 '>
                     <div className=" w-full mx-auto">
                         <label className="label">
                             <span className=" font-semibold text-black">Book Category</span>
@@ -166,7 +171,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 </div>
                 {/* Book Image Form End */}
 
-                <div className='flex justify-between space-x-3.5 mt-1 '>
+                <div className='flex flex-col sm:flex-row  justify-between sm:space-x-3.5 space-x-0 mt-1 '>
                     <div className=" w-full mx-auto ">
                         <label className="label">
                             <span className=" font-semibold">Original Price</span>
@@ -208,7 +213,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                 </div>
                 {/*Used Years Form End */}
 
-                <div className='flex justify-between space-x-3.5 mt-1 '>
+                <div className='flex flex-col sm:flex-row  justify-between sm:space-x-3.5 space-x-0 mt-1 '>
                     <div className=" w-full mx-auto ">
                         <label className="label">
                             <span className=" font-semibold">Phone Number</span>
@@ -245,13 +250,13 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                     <textarea {...register("description", {
                         required: "Description is required"
                     })} type="text" className="input input-bordered w-full bg-white p-4"
-                        placeholder='Add your description' name="description" cols="30" rows="30"
+                        placeholder='Add your description' name="description" cols="30" rows="50"
                     />
                     {errors.description && <p className='text-red-600'>{errors.description.message}</p>}
                 </div>
                 {/* Book Price Form End */}
 
-                <button className='btn bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center text-xl text-white font-semibold' type="submit"  ><span className='ml-1'>Add Product</span></button>
+                <button className='btn sm:btn-md btn-sm bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center md:text-xl sm:text-lg text-md text-white font-semibold' type="submit"  ><span className='ml-1'>Add Product</span></button>
                 {/* Submit Button End */}
             </form>
         </div>

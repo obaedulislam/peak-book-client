@@ -14,8 +14,8 @@ import { BsFillTelephoneInboundFill, BsFillEnvelopeFill } from "react-icons/bs";
 const Footer = () => {
   return (
     <footer className=" bg-gray-100  w-[100%] md:px-0">
-      <div className="">
-        <div className="max-w-[1250px] mx-auto grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 sm:py-12 py-8">
+      <div className="md">
+        <div className="max-w-[1250px] mx-auto grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 sm:py-12 py-8 lg:px-0 md:px-4 px-3">
           <div className=" sm:text-start text-center">
             <div className="foot-head text-center">
               <Link

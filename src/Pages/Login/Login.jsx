@@ -40,10 +40,8 @@ const Login = () => {
                 setCreatedUserEmail(data.email);
             })
             .catch(error => {
-
                 toast.error(loginError);
                 setLoginError(error.message)
-
             })
     }
 
@@ -62,6 +60,7 @@ const Login = () => {
                 setLoginUserEmail(user?.email)
             })
     }
+
     // Google Sign Up Login Form  Handler Function
     const handleGoogleSignUp = () => {
         googleProviderLogin(googleProvider)
@@ -79,16 +78,15 @@ const Login = () => {
             })
     }
 
-
     return (
-        <div className='py-20 max-w-[450px] mx-auto '>
-            <div className='shadow-lg  p-10 rounded-lg border border-gray-200'>
-                <h1 className='text-4xl text-primary font-bold text-center '>Login</h1>
-                <div className='mt-5'>
-                    <button onClick={handleGoogleSignUp} className='btn btn-outline border-gray-300 duration-300 hover:bg-accent w-full mt-3 flex items-center text-lg text-accent font-semibold capitalize font-specially' type="submit"  ><FcGoogle className="md:text-3xl text-xl  "></FcGoogle><span className='ml-1'>Continue With Google</span></button>
-                    <div className="divider text-xl font-bold text-secondary">OR</div>
+        <div className='max-w-[450px] mx-auto lg:py-20 md:py-12 py-10  lg:px-0 md:px-4 px-3'>
+            <div className='shadow-lg  md:p-10 sm:p-5 p-3 rounded-lg border border-gray-200'>
+                <h1 className='sm:text-4xl text-2xl text-primary font-bold text-center '>Login</h1>
+                <div className='sm:mt-5 mt-3'>
+                    <button onClick={handleGoogleSignUp} className='btn btn-outline border-gray-300 duration-300 hover:bg-accent w-full mt-3 flex items-center sm:text-lg text-sm text-accent font-semibold capitalize font-specially' type="submit"  ><FcGoogle className="md:text-3xl text-xl  "></FcGoogle><span className='ml-1'>Continue With Google</span></button>
+                    <div className="divider sm:text-xl text-md font-bold text-secondary">OR</div>
                 </div>
-                <form onSubmit={handleSubmit(handleLogin)} className="mt-8">
+                <form onSubmit={handleSubmit(handleLogin)} className="md:mt-8 sm:mt-5 mt-3">
 
                     <div className="form-control w-full mx-auto ">
                         <input type="email" placeholder='Enter your email'
@@ -114,7 +112,7 @@ const Login = () => {
                         </label>
                     </div>
 
-                    <button className='btn bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center text-xl text-white font-semibold' type="submit"  ><BiLogInCircle className="md:text-3xl text-xl uppercase "></BiLogInCircle><span className='ml-1'>Login</span></button>
+                    <button className='btn sm:btn-md btn-sm bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center sm:text-xl text-md text-white font-semibold' type="submit"  ><BiLogInCircle className="md:text-3xl ms:text-xl text-lg uppercase "></BiLogInCircle><span className='ml-1'>Login</span></button>
                     <div>
                         {
                             loginError && <p className='text-red-500'>{loginError}</p>
@@ -122,7 +120,7 @@ const Login = () => {
                     </div>
                 </form>
 
-                <p className='text-center mt-3'>New to Peak Book? <Link to='/signup' className='text-primary font-bold'>Create new account</Link></p>
+                <p className='text-center mt-3 sm:text-md text-sm'>New to Peak Book? <Link to='/signup' className='text-primary font-bold'>Create new account</Link></p>
 
             </div>
         </div>

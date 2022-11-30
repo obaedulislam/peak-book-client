@@ -75,9 +75,9 @@ const AllSellers = () => {
 
     return (
         <div>
-            <h3 className="text-4xl text-accent font-bold ">All Sellers</h3>
-            <div className=' mt-1'>
-                <div className='w-24 h-[6px] bg-primary'></div>
+            <h3 className="lg:text-4xl md:text-2xl text-xl text-accent font-bold ">All Sellers</h3>
+            <div className=' mt-2'>
+                <div className='md:w-24 md:h-[6px] w-20 h-[4px] bg-primary'></div>
             </div>
             <div className="overflow-x-auto w-full mt-5">
                 <table className="table table-zebra w-full">

@@ -104,9 +104,9 @@ const MyProducts = () => {
         <div className="overflow-hidden p">
 
             <div className="overflow-hidden p">
-                <h3 className="text-4xl text-accent font-bold ">My Products</h3>
+                <h3 className="lg:text-4xl md:text-2xl text-xl text-accent font-bold ">My Products</h3>
                 <div className=' mt-2'>
-                    <div className='w-24 h-[6px] bg-primary'></div>
+                    <div className='md:w-24 md:h-[6px] w-20 h-[4px] bg-primary'></div>
                 </div>
                 <div className="overflow-x-auto w-full mt-5">
                     <table className="table table-zebra w-full">

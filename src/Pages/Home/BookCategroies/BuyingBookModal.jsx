@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const BuyingBookModal = ({ buyBook, setBuyBook }) => {
@@ -33,14 +34,15 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
         fetch('https://peakbook-server.vercel.app/buyingBooks', {
             method: "POST",
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(booking)
         })
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    toast.success("Booking Confirmed")
+                    toast.success(`You have successfully booked ${bookTitle}`)
                     setBuyBook(null);
                 }
                 else {
@@ -59,17 +61,21 @@ const BuyingBookModal = ({ buyBook, setBuyBook }) => {
                     <label htmlFor="booking-modal" className="btn btn-sm btn-circle text-white absolute right-3 top-3">✕</label>
                     <h3 className="text-3xl font-specially font-bold">{book_title}</h3>
                     <div className='mt-5'>
-                        <form onSubmit={handleBooking}>
-                            <div className='grid grid-cols-1 gap-3'>
-                                <input name="name" type="text" placeholder='Full Name' className="input input-bordered w-full font-medium" defaultValue={user?.displayName} disabled required />
-                                <input name="email" type="email" placeholder='Email Address' className="input input-bordered w-full font-medium" defaultValue={user?.email} disabled required />
-                                <input name="book_title" type="text" className="input input-bordered w-full font-medium " defaultValue={book_title} disabled required />
-                                <input name="resale_price" type="number" className="input input-bordered w-full font-medium " value={resale_price} disabled required />
-                                <input name="phone" type="phone" placeholder='Your phone number' className="input input-bordered w-full font-medium" required />
-                                <input name="location" type="text" placeholder='Meeting location' className="input input-bordered w-full font-medium" required />
-                                <input type="submit" placeholder='Full Name' className="input input-bordered w-full  btn-primary text-white text-xl mt-2 uppercase cursor-pointer" />
-                            </div>
-                        </form>
+                        {
+                            user?.email ? <form onSubmit={handleBooking}>
+                                <div className='grid grid-cols-1 gap-3'>
+                                    <input name="name" type="text" placeholder='Full Name' className="input input-bordered w-full font-medium" defaultValue={user?.displayName} disabled required />
+                                    <input name="email" type="email" placeholder='Email Address' className="input input-bordered w-full font-medium" defaultValue={user?.email} disabled required />
+                                    <input name="book_title" type="text" className="input input-bordered w-full font-medium " defaultValue={book_title} disabled required />
+                                    <input name="resale_price" type="number" className="input input-bordered w-full font-medium " value={resale_price} disabled required />
+                                    <input name="phone" type="phone" placeholder='Your phone number' className="input input-bordered w-full font-medium" required />
+                                    <input name="location" type="text" placeholder='Meeting location' className="input input-bordered w-full font-medium" required />
+                                    <input type="submit" placeholder='Full Name' className="input input-bordered w-full  btn-primary text-white text-xl mt-2 uppercase cursor-pointer" />
+                                </div>
+                            </form>
+                                :
+                                <p>You need to <Link className='text-primary font-bold font-specially underline rounded-lg' to='/login'>Login</Link> please, to Buy this Book</p>
+                        }
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import background from '../../../assets/background.jpg'
 
 const BestAuthor = () => {
     return (
-        <div className="rounded-xl bg-primary mt-40 lg:mx-0 md:mx-4 mx-3">
+        <div className="rounded-xl bg-primary lg:mt-36 mt-32 lg:mx-0 md:mx-4 mx-3">
             <div className='author-section'>
                 <div className='grid md:grid-cols-2 grid-cols1  mx-auto md:px-20  px-5'>
                     <div className='flex md:justify-start justify-center'>

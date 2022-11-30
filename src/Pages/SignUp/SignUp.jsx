@@ -47,6 +47,9 @@ const SignUp = () => {
         console.log(url);
         fetch(url, {
             method: "POST",
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
             body: formData
         })
             .then(res => res.json())
@@ -120,15 +123,15 @@ const SignUp = () => {
 
 
     return (
-        <div className='py-20 ' >
+        <div className='lg:py-20 md:py-12 py-10  lg:px-0 md:px-4 px-3 ' >
             <div>
-                <div className='shadow-lg  p-10 bg-white  rounded-lg border max-w-[450px] mx-auto border-gray-200'>
-                    <h1 className='text-4xl text-primary font-bold text-center '>Sign Up</h1>
-                    <div className='mt-5'>
-                        <button onClick={handleGoogleSignUp} className='btn btn-outline border-gray-300 duration-300 hover:bg-accent w-full mt-3 flex items-center text-lg text-accent font-semibold capitalize font-specially' type="submit"  ><FcGoogle className="md:text-3xl text-xl  "></FcGoogle><span className='ml-1'>Sign Up With Google</span></button>
-                        <div className="divider text-xl font-bold text-secondary">OR</div>
+                <div className='shadow-lg  md:p-10 sm:p-5 p-3  bg-white  rounded-lg border max-w-[450px] mx-auto border-gray-200'>
+                    <h1 className='sm:text-4xl text-2xl  text-primary font-bold text-center '>Sign Up</h1>
+                    <div className='sm:mt-5 mt-3'>
+                        <button onClick={handleGoogleSignUp} className='btn btn-outline border-gray-300 duration-300 hover:bg-accent w-full mt-3 flex items-center sm:text-lg text-sm text-accent font-semibold capitalize font-specially' type="submit"  ><FcGoogle className="md:text-3xl text-xl  "></FcGoogle><span className='ml-1'>Sign Up With Google</span></button>
+                        <div className="divider sm:text-xl text-md font-bold text-secondary">OR</div>
                     </div>
-                    <form onSubmit={handleSubmit(handleSignUp)} className="mt-8">
+                    <form onSubmit={handleSubmit(handleSignUp)} className="md:mt-8 sm:mt-5 mt-3">
                         <div className="form-control w-full mx-auto ">
                             <input {...register("name", {
                                 required: "Name is Required"
@@ -183,13 +186,13 @@ const SignUp = () => {
                         </div>
 
 
-                        <button className='btn bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center text-xl text-white font-semibold' type="submit"  ><FaSignOutAlt className="md:text-2xl text-xl uppercase "></FaSignOutAlt><span className='ml-1'>
+                        <button className='btn sm:btn-md btn-sm bg-primary border-0 duration-300 hover:bg-accent w-full mt-2 flex items-center sm:text-xl text-md text-white font-semibold' type="submit"  ><FaSignOutAlt className="md:text-3xl ms:text-xl text-lg uppercase "></FaSignOutAlt><span className='ml-1'>
                             SignUp
                         </span></button>
                         {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     </form>
 
-                    <p className=' text-center mt-3'>Already have an account? <Link to='/login'
+                    <p className=' text-center mt-3 sm:text-md text-sm'>Already have an account? <Link to='/login'
                         className='text-primary font-bold'>Login Now</Link></p>
                 </div>
             </div>
