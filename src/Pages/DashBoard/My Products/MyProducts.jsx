@@ -11,7 +11,7 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext);
 
     //Load user specific product
-    const url = `http://localhost:4500/my-products?email=${user?.email}`;
+    const url = `https://peakbook-server.vercel.app/my-products?email=${user?.email}`;
     const { data: myProducts = [], isLoading, refetch } = useQuery({
         queryKey: ["myProducts", user?.email],
         queryFn: async () => {
@@ -27,7 +27,7 @@ const MyProducts = () => {
 
     //Sales status of your product
     const handleProductSales = (id) => {
-        fetch(`http://localhost:4500/my-products/${id}`, {
+        fetch(`https://peakbook-server.vercel.app/my-products/${id}`, {
             method: "PUT",
             headers: {
                 authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -45,7 +45,7 @@ const MyProducts = () => {
 
     // Advertise Your Product
     const handleAdvertisement = (id) => {
-        fetch(`http://localhost:4500/my-products/ad/${id}`, {
+        fetch(`https://peakbook-server.vercel.app/my-products/ad/${id}`, {
             method: "PUT",
             headers: {
                 authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -75,7 +75,7 @@ const MyProducts = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log(id);
-                fetch(`http://localhost:4500/my-products/${id}`, {
+                fetch(`https://peakbook-server.vercel.app/my-products/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`

@@ -9,7 +9,7 @@ const ReportedItems = () => {
     const { data: reportedBook = [], refetch, isLoading } = useQuery({
         queryKey: ['reportedBook'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4500/reported-products`);
+            const res = await fetch(`https://peakbook-server.vercel.app/reported-products`);
             const data = await res.json();
             return data;
         }
@@ -28,7 +28,7 @@ const ReportedItems = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log(id);
-                fetch(`http://localhost:4500/reported-item/${id}`, {
+                fetch(`https://peakbook-server.vercel.app/reported-item/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`

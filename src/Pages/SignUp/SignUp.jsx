@@ -87,7 +87,7 @@ const SignUp = () => {
     //Save Registered User to DB
     const saveUserToDB = (name, email, url, role) => {
         const user = { name, email, url, role };
-        fetch(`http://localhost:4500/users`, {
+        fetch(`https://peakbook-server.vercel.app/users`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

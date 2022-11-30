@@ -9,7 +9,7 @@ const AllUsers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4500/users`);
+            const res = await fetch(`https://peakbook-server.vercel.app/users`);
             const data = await res.json();
             return data.users;
         }
@@ -27,7 +27,7 @@ const AllUsers = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4500/user/${id}`, {
+                fetch(`https://peakbook-server.vercel.app/user/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`

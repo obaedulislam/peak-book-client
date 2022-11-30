@@ -50,7 +50,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:4500/category/${params.id}`),
+          fetch(`https://peakbook-server.vercel.app/category/${params.id}`),
       },
     ],
   },
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
           </BuyerRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:4500/payment/${params.id}`),
+          fetch(`https://peakbook-server.vercel.app/payment/${params.id}`),
       },
       {
         path: "/dashboard/myproducts",

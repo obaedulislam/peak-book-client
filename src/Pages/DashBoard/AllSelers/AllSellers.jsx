@@ -10,7 +10,7 @@ const AllSellers = () => {
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4500/users/sellers`);
+            const res = await fetch(`https://peakbook-server.vercel.app/users/sellers`);
             const data = await res.json();
             return data;
         }
@@ -18,7 +18,7 @@ const AllSellers = () => {
 
     //Verify seller
     const handleVerifySeller = id => {
-        fetch(`http://localhost:4500/seller/${id}`, {
+        fetch(`https://peakbook-server.vercel.app/seller/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -51,7 +51,7 @@ const AllSellers = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then(result => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:4500/seller/${id}`, {
+                fetch(`https://peakbook-server.vercel.app/seller/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`

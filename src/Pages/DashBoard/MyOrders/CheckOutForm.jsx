@@ -17,7 +17,7 @@ const CheckOutForm = ({ book }) => {
     //Load Payment Data
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:4500/create-payment-intent", {
+        fetch("https://peakbook-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const CheckOutForm = ({ book }) => {
                 paymentId: _id
             }
 
-            fetch(`http://localhost:4500/payments`, {
+            fetch(`https://peakbook-server.vercel.app/payments`, {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json',
@@ -99,7 +99,7 @@ const CheckOutForm = ({ book }) => {
                         setSuccess('Congrats! Your payment completed');
                         setTransactionId(paymentIntent.id);
 
-                        fetch(`http://localhost:4500/my-products/${bookId}`, {
+                        fetch(`https://peakbook-server.vercel.app/my-products/${bookId}`, {
                             method: 'PUT',
                             headers: {
                                 'content-type': 'application/json',

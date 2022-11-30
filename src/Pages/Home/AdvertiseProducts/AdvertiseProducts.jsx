@@ -9,7 +9,7 @@ const AdvertiseProducts = () => {
     const [adsProducts, setAdsProducts] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:4500/advertised-products`)
+        axios.get(`https://peakbook-server.vercel.app/advertised-products`)
             .then(data => setAdsProducts(data.data.adsProducts))
     }, [])
     console.log(adsProducts);

@@ -25,7 +25,7 @@ const Book = ({ book, setBuyBook }) => {
         }).then((result) => {
 
             if (result.isConfirmed) {
-                fetch(`http://localhost:4500/reported-product/${id}`, {
+                fetch(`https://peakbook-server.vercel.app/reported-product/${id}`, {
                     method: "PUT",
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
