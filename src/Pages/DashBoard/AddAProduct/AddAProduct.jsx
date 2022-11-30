@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -9,6 +9,7 @@ import Loading from '../../../Shared/Loading/Loading';
 
 const AddAProduct = ({ selectedDate, setSelectedDate }) => {
 
+    const [sellerVerifyStatus, setSellerVerifyStatus] = useState(false);
     const { user } = useContext(AuthContext);
     console.log(user);
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -27,6 +28,15 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
             return data;
         }
     })
+
+    useEffect(() => {
+        fetch(`http://localhost:4500/users/seller/${user?.email}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log('inside add', data);
+                setSellerVerifyStatus(data.isSellerVerified);
+            })
+    }, [user?.email])
 
     const handleAddBook = data => {
         const image = data.image[0];
@@ -60,7 +70,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                         advertise: false,
                         reported: false,
                         wishlist: false,
-                        verify_user: false,
+                        isSellerVerified: sellerVerifyStatus,
                     }
 
                     //Save book information to the Database

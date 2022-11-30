@@ -8,7 +8,7 @@ const Book = ({ book, setBuyBook }) => {
 
     const [loading, setLoading] = useState(false);
 
-    const { book_title, book_photo, published_date, resale_price, original_price, years_of_use, seller_name, verify_user, location, product_condition, reported } = book;
+    const { book_title, book_photo, published_date, resale_price, original_price, years_of_use, seller_name, verify_user, location, product_condition, reported, isSellerVerified } = book;
 
 
     // Report a product to admin
@@ -85,9 +85,8 @@ const Book = ({ book, setBuyBook }) => {
                         <span>Seller: </span><span className='text-black ml-2'> {seller_name}</span>
                         <span>
                             {
-                                (verify_user) ?
-                                    <MdVerifiedUser className='text-primary text-lg'></MdVerifiedUser>
-                                    : ''
+                                (book?.isSellerVerified) &&
+                                <MdVerifiedUser className='text-primary text-lg'></MdVerifiedUser>
                             }
                         </span>
                     </p>

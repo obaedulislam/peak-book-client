@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { BsTrash } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -14,6 +15,29 @@ const AllSellers = () => {
             return data;
         }
     })
+
+    //Verify seller
+    const handleVerifySeller = id => {
+        fetch(`http://localhost:4500/seller/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({ status: true })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.status) {
+                    refetch();
+                    toast.success(data.message);
+                } else {
+                    toast.error(data.error)
+                }
+
+            })
+    }
 
     //Delete Seller from DB & Client
     const handleDeleteSeller = id => {
@@ -79,7 +103,14 @@ const AllSellers = () => {
                                     </div>
                                 </td>
                                 <td className="font-semibold text-sm">{seller?.email}</td>
-                                <td className="font-semibold text-primary"><span className='bg-gray-100 py-1 px-2 rounded-lg text-sm'>{seller?.role}</span></td>
+                                <td className="font-semibold text-primary">
+                                    {
+                                        seller?.isSellerVerified ?
+                                            <p> Verified</p>
+                                            :
+                                            <button onClick={() => handleVerifySeller(seller._id)} className=" py-[2px] rounded-lg   px-2  bg-red-500   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-sm capitalize font-semibold flex items-center "><BsTrash className=' mr-1'></BsTrash> Verify Seller</button>
+                                    }
+                                </td>
 
                                 <td className="font-semibold text-sm text-center"><div className="">
                                     <Link className="text-center"><button onClick={() => handleDeleteSeller(seller._id)} className=" py-[2px] rounded-lg   px-2  bg-red-500   duration-300 hover:border-[#5C7CFA] hover:bg-accent text-white   text-sm capitalize font-semibold flex items-center "><BsTrash className=' mr-1'></BsTrash> Delete</button></Link>
@@ -89,8 +120,8 @@ const AllSellers = () => {
                         }
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

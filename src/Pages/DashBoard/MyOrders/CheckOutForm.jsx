@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 const CheckOutForm = ({ book }) => {
 
-    const { _id, bookTitle, bookPrice, userName, email } = book;
+    const { _id, bookTitle, bookPrice, userName, email, bookId } = book;
 
     const [cardError, setCardError] = useState('');
     const [clientSecret, setClientSecret] = useState("");
@@ -98,6 +98,20 @@ const CheckOutForm = ({ book }) => {
                     if (data.insertedId) {
                         setSuccess('Congrats! Your payment completed');
                         setTransactionId(paymentIntent.id);
+
+                        fetch(`http://localhost:4500/my-products/${bookId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'content-type': 'application/json',
+                                authorization: `bearer ${localStorage.getItem('accessToken')}`
+                            },
+                            body: JSON.stringify({ status: true })
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data);
+
+                            })
                     }
                 })
         }

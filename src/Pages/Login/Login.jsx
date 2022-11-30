@@ -24,7 +24,7 @@ const Login = () => {
     //After Login Navigation
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.form?.pathname || '/';
+    const from = location.state?.from?.pathname || '/';
 
     if (token) {
         navigate(from, { replace: true });
@@ -36,7 +36,6 @@ const Login = () => {
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                setLoading(true);
                 setLoginUserEmail(data.email)
                 setCreatedUserEmail(data.email);
             })
@@ -60,7 +59,7 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(data => {
-
+                setLoginUserEmail(user?.email)
             })
     }
     // Google Sign Up Login Form  Handler Function
