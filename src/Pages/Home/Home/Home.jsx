@@ -9,17 +9,17 @@ import BookCategories from '../BookCategroies/BookCategories';
 const Home = () => {
     return (
         <div>
-            <div className='px-20 bg-gray-100 my-10 rounded-xl'>
+            <div className='lg:px-20 md:px-8 px-5 lg:py-16  md:py-8 py-5 bg-gray-100 my-10 rounded-xl'>
                 <Banner></Banner>
             </div>
-            <div className='pt-10 pb-20'>
+            <div className='lg:pt-10 md:pt-8 pt-5 lg:pb-20 md:pb-8 pb-5'>
                 <BookCategories></BookCategories>
             </div>
-            <div className='pt-10 pb-20'>
+            <div className='lg:pt-10 md:pt-8 pt-5 lg:pb-20 md:pb-8 pb-5'>
                 <AdvertiseProducts></AdvertiseProducts>
             </div>
 
-            <div className='pb-20 '>
+            <div className='lg:pt-10 md:pt-8 pt-5 lg:pb-20 md:pb-8 pb-5'>
                 <BestAuthor></BestAuthor>
             </div>
         </div>

@@ -17,7 +17,7 @@ const AdvertiseProducts = () => {
     return (
         <div>
             {
-                adsProducts?.length > 0 && <section className="body-font bg-base-100">
+                adsProducts?.length > 0 && <section className="body-font bg-base-100 lg:px-0 md:px-4 px-3">
                     <div className="">
                         <div className="">
 
@@ -25,7 +25,7 @@ const AdvertiseProducts = () => {
                             <div className=' mt-2'>
                                 <div className='w-24 h-[6px] bg-accent'></div>
                             </div>
-                            <div className=' grid grid-cols-3 rounded-xl gap-10 mt-7'>
+                            <div className=' grid rounded-xl md:grid-cols-3 sm:grid-cols-2 grid-cols-1  lg:gap-6 gap-4 lg:px-0  mt-7'>
                                 {
                                     adsProducts.map(book => <Book
                                         key={book._id}
