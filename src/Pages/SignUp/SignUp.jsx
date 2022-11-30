@@ -47,9 +47,6 @@ const SignUp = () => {
         console.log(url);
         fetch(url, {
             method: "POST",
-            headers: {
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
-            },
             body: formData
         })
             .then(res => res.json())
