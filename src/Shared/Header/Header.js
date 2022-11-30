@@ -100,11 +100,11 @@ const Header = () => {
             <div className="md:ml-0 ml-5">
               <Link to="/" className="  flex items-center">
                 <img
-                  className="md:w-16 md:h-16 sm:w-12 sm:h-12 w-10 h-10"
+                  className="md:w-12 md:h-16 sm:w-10 sm:h-12 w-8 h-10"
                   src={logo}
                   alt="Peak Book"
                 />
-                <h1 className="uppercase lg:text-3xl md:text-2xl sm:text-xl text-lg font-extrabold text-primary ">
+                <h1 className="ml-2 uppercase lg:text-3xl md:text-2xl sm:text-xl text-lg font-extrabold text-primary ">
                   Peak <span className="text-accent">Book</span>
                 </h1>
               </Link>

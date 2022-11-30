@@ -201,7 +201,7 @@ const AddAProduct = ({ selectedDate, setSelectedDate }) => {
                     </label>
                     <input {...register("yearsOfUse", {
                         required: "Use's year is required"
-                    })} type="text" name="yearsOfUse" className="input input-bordered w-full bg-white"
+                    })} type="number" name="yearsOfUse" className="input input-bordered w-full bg-white"
                         placeholder="Used years"
                     />
                     {errors.yearsOfUse && <p className='text-red-600'>{errors.yearsOfUse.message}</p>}

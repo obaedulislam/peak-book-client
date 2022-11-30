@@ -18,7 +18,7 @@ const SingleBookCategory = () => {
                     <div className='w-24 h-[6px] bg-accent'></div>
                 </div>
             </div>
-            <div className='max-w-[1200px] mx-auto grid grid-cols-3 gap-10'>
+            <div className='max-w-[1200px] mx-auto grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1  lg:gap-6 gap-4 lg:px-0 px-3'>
                 {
                     books?.map(book => <Book
                         key={book._id}
