@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { ScrollRestoration } from 'react-router-dom';
 import Loading from '../../../Shared/Loading/Loading';
 import Book from '../BookCategroies/Book';
 import BuyingBookModal from '../BookCategroies/BuyingBookModal';
@@ -12,10 +13,15 @@ const AdvertiseProducts = () => {
         axios.get(`https://peakbook-server.vercel.app/advertised-products`)
             .then(data => setAdsProducts(data.data.adsProducts))
     }, [])
-    console.log(adsProducts);
+
+
+    if (adsProducts?.length === 0) {
+        return <Loading></Loading>
+    }
 
     return (
         <div>
+            <ScrollRestoration />
             {
                 adsProducts?.length > 0 && <section className="body-font bg-base-100 lg:px-0 md:px-4 px-3">
                     <div className="">

@@ -3,6 +3,8 @@ import { BsCartPlusFill } from 'react-icons/bs';
 import { MdLocationOn, MdReport, MdVerifiedUser } from 'react-icons/md';
 import { AiFillStar } from "react-icons/ai";
 import Swal from 'sweetalert2';
+import Loading from '../../../Shared/Loading/Loading';
+import { ScrollRestoration } from 'react-router-dom';
 
 const Book = ({ book, setBuyBook }) => {
 
@@ -47,9 +49,13 @@ const Book = ({ book, setBuyBook }) => {
 
     }
 
+    if (book?.length === 0) {
+        <Loading></Loading>
+    }
 
     return (
         <div className='bg-gray-100   shadow border border-blue-100 rounded-xl'>
+            <ScrollRestoration />
             <div className='p-3  '>
                 <img className='shadow-lg w-full lg:h-[350px]  h-[250px]  border-r-[12px] border-gray-400 ' src={book_photo} alt={book_title} />
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScrollRestoration } from 'react-router-dom';
 import AdvertiseProducts from '../AdvertiseProducts/AdvertiseProducts';
 
 import Banner from '../Banner/Banner';
@@ -9,6 +10,7 @@ import BookCategories from '../BookCategroies/BookCategories';
 const Home = () => {
     return (
         <div>
+            <ScrollRestoration />
             <div className='lg:px-20 md:px-8 px-5 lg:py-16  md:py-8 py-5 lg:mx-0 md:mx-4 mx-3 bg-gray-100 my-10 rounded-xl'>
                 <Banner></Banner>
             </div>

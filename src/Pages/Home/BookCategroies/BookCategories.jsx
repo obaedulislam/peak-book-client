@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Loading from '../../../Shared/Loading/Loading';
 import BookCategory from './BookCategory';
 
 const BookCategories = () => {
@@ -11,6 +12,9 @@ const BookCategories = () => {
             .then(data => setCategories(data.data.bookCategories))
     }, [])
 
+    if (categories?.length === 0) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className='lg:px-0 md:px-4 px-3'>
